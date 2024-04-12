@@ -45,4 +45,16 @@ public class MemberDTO {
         this.member_passwd = member_passwd;
     }
 
+    @Override
+    public String toString() {
+        return "MemberDTO{" +
+                "member_no='" + member_no + '\'' +
+                ", member_name='" + member_name + '\'' +
+                ", member_id='" + member_id + '\'' +
+                ", member_passwd='" + member_passwd + '\'' +
+                ", member_email='" + member_email + '\'' +
+                ", member_balance='" + member_balance + '\'' +
+                ", member_role='" + member_role + '\'' +
+                '}';
+    }
 }

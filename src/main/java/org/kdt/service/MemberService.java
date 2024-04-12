@@ -12,7 +12,12 @@ public class MemberService {
     public MemberService(MemberDAO dao) {
         this.dao = dao;
     }
+    public MemberDTO findbyId(String memberId){
+        try(SqlSession session = Config.getConnection()) {
+            return dao.findById(session,memberId);
+        }
 
+    }
     public boolean login(MemberDTO memberDTO) {
         try(SqlSession session = Config.getConnection()){
             MemberDTO check = dao.findById(session, memberDTO.getMember_id());
