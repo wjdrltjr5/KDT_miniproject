@@ -4,9 +4,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.kdt.Config;
 import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MemberServiceImpl implements MemberService {
-	
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	private MemberDAO memberDAO;
 	@Override
 	public void setMemberDAO(MemberDAO memberDAO) {
@@ -26,13 +28,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return n;
 	}
-
+    @Override
     public MemberDTO findbyId(String memberId){
         try(SqlSession session = Config.getConnection()) {
+            log.info("session = {}",session);
             return memberDAO.findById(session,memberId);
         }
 
     }
+    @Override
     public boolean login(MemberDTO memberDTO) {
         try(SqlSession session = Config.getConnection()){
             MemberDTO check = memberDAO.findById(session, memberDTO.getMember_id());
@@ -43,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
     }
-
+    @Override
     public boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check){
         if(memberDTO.getMember_id().equals(check.getMember_id())
                 && memberDTO.getMember_passwd().equals(check.getMember_passwd())){

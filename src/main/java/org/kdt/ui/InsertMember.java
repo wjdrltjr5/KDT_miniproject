@@ -139,7 +139,9 @@ public class InsertMember extends JFrame {
 		            memberDTO.setMember_passwd(pw);
 		            memberDTO.setMember_email(em);
 		            int result = memberService.insertMember(memberDTO);
-		        }
+					setVisible(false);
+					 new Login().setVisible(true);
+				}
 			}
 		});
 	}

@@ -1,7 +1,7 @@
 package org.kdt.dto;
 
 public class MemberDTO {
-	private String member_no;
+	private long member_no;
 	private String member_name;
 	private String member_id;
 	private String member_passwd;
@@ -19,7 +19,7 @@ public class MemberDTO {
 		this.member_email = member_email;
 	}
 
-	public MemberDTO(String member_no, String member_name, String member_id, String member_passwd, String member_email,
+	public MemberDTO(long member_no, String member_name, String member_id, String member_passwd, String member_email,
 			int member_balance, String member_role) {
 		this.member_no = member_no;
 		this.member_name = member_name;
@@ -30,11 +30,11 @@ public class MemberDTO {
 		this.member_role = member_role;
 	}
 
-	public String getMember_no() {
+	public long getMember_no() {
 		return member_no;
 	}
 
-	public void setMember_no(String member_no) {
+	public void setMember_no(long member_no) {
 		this.member_no = member_no;
 	}
 
