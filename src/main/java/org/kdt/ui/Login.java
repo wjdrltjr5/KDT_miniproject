@@ -13,8 +13,8 @@ public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfId;
+	private JTextField tfPwd;
 
 	/**
 	 * Launch the application.
@@ -52,22 +52,22 @@ public class Login extends JFrame {
 		lblNewLabel_1.setBounds(33, 111, 57, 31);
 		contentPane.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(102, 62, 96, 21);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		tfId = new JTextField();
+		tfId.setBounds(102, 62, 96, 21);
+		contentPane.add(tfId);
+		tfId.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(102, 116, 96, 21);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		tfPwd = new JTextField();
+		tfPwd.setBounds(102, 116, 96, 21);
+		contentPane.add(tfPwd);
+		tfPwd.setColumns(10);
 		
-		JButton btnNewButton = new JButton("\uB85C\uADF8\uC778");
-		btnNewButton.setBounds(33, 165, 91, 23);
-		contentPane.add(btnNewButton);
+		JButton btnLogin = new JButton("\uB85C\uADF8\uC778");
+		btnLogin.setBounds(33, 165, 91, 23);
+		contentPane.add(btnLogin);
 		
-		JButton btnNewButton_1 = new JButton("\uD68C\uC6D0\uAC00\uC785");
-		btnNewButton_1.setBounds(136, 165, 91, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnSignUp = new JButton("\uD68C\uC6D0\uAC00\uC785");
+		btnSignUp.setBounds(136, 165, 91, 23);
+		contentPane.add(btnSignUp);
 	}
 }
