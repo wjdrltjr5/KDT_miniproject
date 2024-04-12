@@ -2,11 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="DeptMapper">
+<mapper namespace="MemberMapper">
     <!--  전체 조회-->
-    <select id="findAll" resultType="MemberDTO">
-        select *
-        from member
+    <select id="findById" resultType="MemberDTO" parameterType="String">
+        select * from member where member_id = #{memberId}
     </select>
 
 </mapper>
