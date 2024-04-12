@@ -1,6 +1,7 @@
 package org.kdt.ui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -83,6 +84,15 @@ public class Login extends JFrame {
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.setBounds(136, 165, 91, 23);
 		contentPane.add(btnSignUp);
+		
+		btnSignUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				InsertMember insertMember = new InsertMember();
+				setVisible(false);
+				insertMember.setVisible(true);
+			}
+		});
 
 	}
 
@@ -103,4 +113,5 @@ public class Login extends JFrame {
 			log.info("로그인 실패");
 		}
 	};
+	
 }
