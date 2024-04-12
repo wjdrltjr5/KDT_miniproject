@@ -139,8 +139,12 @@ public class InsertMember extends JFrame {
 		            memberDTO.setMember_passwd(pw);
 		            memberDTO.setMember_email(em);
 		            int result = memberService.insertMember(memberDTO);
+		            
+		            JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "회원가입 성공", JOptionPane.INFORMATION_MESSAGE);
 					setVisible(false);
-					 new Login().setVisible(true);
+					new Login().setVisible(true);
+					
+					
 				}
 			}
 		});
