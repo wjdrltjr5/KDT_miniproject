@@ -26,4 +26,28 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return n;
 	}
+
+    public MemberDTO findbyId(String memberId){
+        try(SqlSession session = Config.getConnection()) {
+            return memberDAO.findById(session,memberId);
+        }
+
+    }
+    public boolean login(MemberDTO memberDTO) {
+        try(SqlSession session = Config.getConnection()){
+            MemberDTO check = memberDAO.findById(session, memberDTO.getMember_id());
+            if (check == null){
+                return false;
+            }
+            return checkIdAndPassword(memberDTO,check);
+        }
+
+    }
+
+    public boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check){
+        if(memberDTO.getMember_id().equals(check.getMember_id())
+                && memberDTO.getMember_passwd().equals(check.getMember_passwd())){
+            return true;
+        }else return false;
+    }
 }

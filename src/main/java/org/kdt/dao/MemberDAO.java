@@ -10,4 +10,8 @@ public class MemberDAO {
 		int n = session.insert("MemberMapper.insertMember", dto);
 		return n;
 	}
+    public MemberDTO findById(SqlSession session, String memberId) {
+        return session.selectOne("MemberMapper.findById", memberId);
+    }
+
 }
