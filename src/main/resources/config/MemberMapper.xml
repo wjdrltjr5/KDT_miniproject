@@ -2,11 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="DeptMapper">
-    <!--  전체 조회-->
-    <select id="findAll" resultType="MemberDTO">
-        select *
-        from member
+        
+<mapper namespace="MemberMapper">
+    <!-- 회원정보 입력 -->
+    <select id="insertMember" resultType="MemberDTO" parameterType="MemberDTO">
+        insert into member
+        (member_name, member_id, member_passwd, member_email)
+        values (#{member_name}, #{member_id}, #{member_passwd}, #{member_email})
     </select>
 
 </mapper>
