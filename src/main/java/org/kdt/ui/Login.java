@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
@@ -47,6 +48,7 @@ public class Login extends JFrame {
 	public Login() {
 
 		memberService = new MemberServiceImpl();
+		memberService.setMemberDAO(new MemberDAO());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);
@@ -84,6 +86,8 @@ public class Login extends JFrame {
 		btnSignUp.setBounds(136, 165, 91, 23);
 		contentPane.add(btnSignUp);
 
+		btnSignUp.addActionListener(insertMember);
+
 	}
 
 	private final ActionListener login = x -> {
@@ -102,5 +106,10 @@ public class Login extends JFrame {
 			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");
 			log.info("로그인 실패");
 		}
+	};
+	private final ActionListener insertMember = x ->{
+		InsertMember insertMember = new InsertMember();
+		this.setVisible(false);
+		insertMember.setVisible(true);
 	};
 }

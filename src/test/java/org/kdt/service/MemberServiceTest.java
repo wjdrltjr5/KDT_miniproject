@@ -15,8 +15,9 @@ class MemberServiceTest {
         //given
         MemberDAO dao = new MemberDAO();
         MemberService memberService = new MemberServiceImpl();
+        memberService.setMemberDAO(dao);
         MemberDTO dto = new MemberDTO();
-        dto.setMember_id("wjdrltjr");
+        dto.setMember_id("test");
         dto.setMember_passwd("1234");
         //when
         boolean check = memberService.login(dto);
@@ -31,6 +32,7 @@ class MemberServiceTest {
         //given
         MemberDAO dao = new MemberDAO();
         MemberService memberService = new MemberServiceImpl();
+        memberService.setMemberDAO(dao);
         MemberDTO dto = new MemberDTO();
         dto.setMember_id("wjdrltjr");
         dto.setMember_passwd("123213124");
