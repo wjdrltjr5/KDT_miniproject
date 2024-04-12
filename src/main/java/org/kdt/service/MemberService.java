@@ -1,38 +1,17 @@
 package org.kdt.service;
 
+import org.kdt.dao.MemberDAO;
+import org.kdt.dto.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.kdt.Config;
 import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
 
-public class MemberService {
+public interface MemberService {
+	public int insertMember(MemberDTO dto);
+	public void setMemberDAO(MemberDAO memberDAO);
+	public MemberDTO findbyId(String memberId);
+	public boolean login(MemberDTO memberDTO);
+	public boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check);
 
-    private final MemberDAO dao;
-
-    public MemberService(MemberDAO dao) {
-        this.dao = dao;
-    }
-    public MemberDTO findbyId(String memberId){
-        try(SqlSession session = Config.getConnection()) {
-            return dao.findById(session,memberId);
-        }
-
-    }
-    public boolean login(MemberDTO memberDTO) {
-        try(SqlSession session = Config.getConnection()){
-            MemberDTO check = dao.findById(session, memberDTO.getMember_id());
-            if (check == null){
-                return false;
-            }
-            return checkIdAndPassword(memberDTO,check);
-        }
-
-    }
-
-    private boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check){
-        if(memberDTO.getMember_id().equals(check.getMember_id())
-                && memberDTO.getMember_passwd().equals(check.getMember_passwd())){
-            return true;
-        }else return false;
-    }
 }

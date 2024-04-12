@@ -1,16 +1,21 @@
 package org.kdt.ui;
 
-import org.kdt.dao.MemberDAO;
-import org.kdt.dto.MemberDTO;
-import org.kdt.service.MemberService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import org.kdt.dto.MemberDTO;
+import org.kdt.service.MemberService;
+import org.kdt.service.MemberServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Login extends JFrame {
 
@@ -41,7 +46,7 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 
-		memberService = new MemberService(new MemberDAO());
+		memberService = new MemberServiceImpl();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);

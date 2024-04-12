@@ -1,12 +1,11 @@
 package org.kdt.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
@@ -15,7 +14,7 @@ class MemberServiceTest {
     void loginSuccess(){
         //given
         MemberDAO dao = new MemberDAO();
-        MemberService memberService = new MemberService(dao);
+        MemberService memberService = new MemberServiceImpl();
         MemberDTO dto = new MemberDTO();
         dto.setMember_id("wjdrltjr");
         dto.setMember_passwd("1234");
@@ -31,7 +30,7 @@ class MemberServiceTest {
     void loginFailed(){
         //given
         MemberDAO dao = new MemberDAO();
-        MemberService memberService = new MemberService(dao);
+        MemberService memberService = new MemberServiceImpl();
         MemberDTO dto = new MemberDTO();
         dto.setMember_id("wjdrltjr");
         dto.setMember_passwd("123213124");
