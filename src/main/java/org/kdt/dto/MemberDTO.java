@@ -44,4 +44,5 @@ public class MemberDTO {
     public void setMember_passwd(String member_passwd) {
         this.member_passwd = member_passwd;
     }
+
 }

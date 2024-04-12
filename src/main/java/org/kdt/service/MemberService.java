@@ -16,6 +16,9 @@ public class MemberService {
     public boolean login(MemberDTO memberDTO) {
         try(SqlSession session = Config.getConnection()){
             MemberDTO check = dao.findById(session, memberDTO.getMember_id());
+            if (check == null){
+                return false;
+            }
             return checkIdAndPassword(memberDTO,check);
         }
 

@@ -1,21 +1,27 @@
 package org.kdt.ui;
 
-import java.awt.EventQueue;
+import org.kdt.dao.MemberDAO;
+import org.kdt.dto.MemberDTO;
+import org.kdt.service.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 public class Login extends JFrame {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private MemberService memberService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfId;
 	private JTextField tfPwd;
-
+	private JButton btnLogin;
+	private JButton btnSignUp;
 	/**
 	 * Launch the application.
 	 */
@@ -36,6 +42,9 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+
+		memberService = new MemberService(new MemberDAO());
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);
 		contentPane = new JPanel();
@@ -62,12 +71,33 @@ public class Login extends JFrame {
 		contentPane.add(tfPwd);
 		tfPwd.setColumns(10);
 		
-		JButton btnLogin = new JButton("\uB85C\uADF8\uC778");
+		btnLogin = new JButton("\uB85C\uADF8\uC778");
 		btnLogin.setBounds(33, 165, 91, 23);
 		contentPane.add(btnLogin);
-		
-		JButton btnSignUp = new JButton("\uD68C\uC6D0\uAC00\uC785");
+
+		btnLogin.addActionListener(login);
+
+		btnSignUp = new JButton("\uD68C\uC6D0\uAC00\uC785");
 		btnSignUp.setBounds(136, 165, 91, 23);
 		contentPane.add(btnSignUp);
+
 	}
+
+	private ActionListener login = x -> {
+
+		String id = tfId.getText();
+		String pwd = tfPwd.getText();
+
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMember_id(id);
+		memberDTO.setMember_passwd(pwd);
+
+		if(memberService.login(memberDTO)){
+			log.info("로그인 성공");
+			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
+		}else{
+			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");
+			log.info("로그인 실패");
+		}
+	};
 }
