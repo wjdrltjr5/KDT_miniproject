@@ -6,7 +6,7 @@
 
     <properties resource="config/jdbc.properties"/>
     <typeAliases>
-        <typeAlias type="org.kdt.DeptDto" alias="DeptDto"/>
+        <typeAlias type="org.kdt.dto.MemberDTO" alias="MemberDTO"/>
     </typeAliases>
     <!-- JDBC.properties 등록-->
 
@@ -25,6 +25,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="config/DeptMapper.xml"/>
+        <mapper resource="config/MemberMapper.xml"/>
     </mappers>
 </configuration>
