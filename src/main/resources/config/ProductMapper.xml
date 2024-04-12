@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+
+	<!--  전체 조회 -->
+	<select id="findProductAll" resultType="ProductDTO">
+    	SELECT * FROM product
+	</select>
+
+
+	<!-- 데이터 추가 -->
+	<insert id="saveProduct" parameterType="org.kdt.dto.ProductDTO">
+    	INSERT INTO product ( `product_no`, `product_category`, `product_name`, `product_date`, `product_price`, `product_quantity` )
+    	VALUES (#{product_no}, #{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
+    </insert>
+
+</mapper>
