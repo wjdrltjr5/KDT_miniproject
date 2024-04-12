@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Login extends JFrame {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private MemberService memberService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -26,16 +26,14 @@ public class Login extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+            try {
+                Login frame = new Login();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 	}
 
 	/**
@@ -53,11 +51,11 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("\uC544\uC774\uB514");
+		JLabel lblNewLabel = new JLabel("아이디");
 		lblNewLabel.setBounds(33, 57, 57, 31);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("\uD328\uC2A4\uC6CC\uB4DC");
+		JLabel lblNewLabel_1 = new JLabel("패스워드");
 		lblNewLabel_1.setBounds(33, 111, 57, 31);
 		contentPane.add(lblNewLabel_1);
 		
@@ -71,30 +69,30 @@ public class Login extends JFrame {
 		contentPane.add(tfPwd);
 		tfPwd.setColumns(10);
 		
-		btnLogin = new JButton("\uB85C\uADF8\uC778");
+		btnLogin = new JButton("로그인");
 		btnLogin.setBounds(33, 165, 91, 23);
 		contentPane.add(btnLogin);
 
 		btnLogin.addActionListener(login);
 
-		btnSignUp = new JButton("\uD68C\uC6D0\uAC00\uC785");
+		btnSignUp = new JButton("회원가입");
 		btnSignUp.setBounds(136, 165, 91, 23);
 		contentPane.add(btnSignUp);
 
 	}
 
-	private ActionListener login = x -> {
-
-		String id = tfId.getText();
-		String pwd = tfPwd.getText();
+	private final ActionListener login = x -> {
 
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMember_id(id);
-		memberDTO.setMember_passwd(pwd);
+		memberDTO.setMember_id(tfId.getText());
+		memberDTO.setMember_passwd(tfPwd.getText());
 
 		if(memberService.login(memberDTO)){
 			log.info("로그인 성공");
 			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
+			// 다음화면으로 넘길 DTO
+			memberDTO = memberService.findbyId(memberDTO.getMember_id());
+			log.info("memberDTO {}", memberDTO);
 		}else{
 			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");
 			log.info("로그인 실패");
