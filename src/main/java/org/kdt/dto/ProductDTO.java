@@ -1,2 +1,4 @@
-package org.kdt.dto;public class ProductDTO {
+package org.kdt.dto;
+
+public class ProductDTO {
 }

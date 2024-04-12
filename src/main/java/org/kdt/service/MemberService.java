@@ -1,2 +1,4 @@
-package org.kdt.service;public class MemberService {
+package org.kdt.service;
+
+public class MemberService {
 }
