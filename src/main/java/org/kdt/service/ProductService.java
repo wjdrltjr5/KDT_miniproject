@@ -5,11 +5,14 @@ import java.util.List;
 import org.kdt.dto.ProductDTO;
 
 public interface ProductService {
-	List<ProductDTO> select();
+    List<ProductDTO> select();
 
-	int insert(ProductDTO dto) throws DuplicatedProductnoException;
+    int insertProduct(ProductDTO dto) throws DuplicatedProductnoException;
 
-	int delete(String productNo);
+   // int deleteProduct(Integer productNo);
+    int deleteProduct(ProductDTO product);
 
-	int insertDelete(ProductDTO dto, String Productno) throws DuplicatedProductnoException;
+    int insertDelete(ProductDTO dto, Integer ProductNo) throws DuplicatedProductnoException;
+
+    int updateProduct(ProductDTO dto) throws DuplicatedProductnoException;
 }

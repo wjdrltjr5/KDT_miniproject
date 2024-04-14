@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int insert(ProductDTO dto) throws DuplicatedProductnoException {
+    public int insertProduct(ProductDTO dto) throws DuplicatedProductnoException {
         int n = 0;
         try {
             con = DriverManager.getConnection(url, userid, passwd); // con 초기화
@@ -52,26 +52,39 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int delete(String productNo) {
+    public int deleteProduct(ProductDTO dto) {
         int n = 0;
         try {
             con = DriverManager.getConnection(url, userid, passwd); // con 초기화
             ProductDAO dao = new ProductDAO();
-            n = dao.delete(con, productNo);
+            n = dao.delete(con, dto);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return n;
     }
+    
+    @Override
+	public int updateProduct(ProductDTO dto) throws DuplicatedProductnoException {
+		int n = 0;
+		try {
+			con = DriverManager.getConnection(url, userid, passwd); // con 초기화
+			ProductDAO dao = new ProductDAO();
+			n = dao.update(con, dto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 
     @Override
-    public int insertDelete(ProductDTO dto, String productNo) throws DuplicatedProductnoException {
+    public int insertDelete(ProductDTO dto, Integer productNo) throws DuplicatedProductnoException {
         int n = 0;
         try {
             con = DriverManager.getConnection(url, userid, passwd); // con 초기화
             ProductDAO dao = new ProductDAO();
             con.setAutoCommit(false);
-            dao.delete(con, productNo);
+            dao.delete(con, dto);
             n = dao.insert(con, dto);
             con.commit();
         } catch (SQLException e) {

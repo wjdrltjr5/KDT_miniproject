@@ -3,18 +3,18 @@ package org.kdt.dto;
 import java.sql.Date;
 
 public class ProductDTO {
-	private String productNo; 
+	private Integer productNo; // int 대신 Integer로 변경
 	private String productCategory;
-	private String productName; 
-	private Date productDate; 
-	private int productPrice; 
-	private int productQuantity; 
+	private String productName;
+	private Date productDate;
+	private int productPrice;
+	private int productQuantity;
 
 	public ProductDTO() {
 
 	}
 
-	public ProductDTO(String productNo, String productCategory, String productName, Date productDate, int productPrice,
+	public ProductDTO(Integer productNo, String productCategory, String productName, Date productDate, int productPrice,
 			int productQuantity) {
 		this.productNo = productNo;
 		this.productCategory = productCategory;
@@ -24,7 +24,7 @@ public class ProductDTO {
 		this.productQuantity = productQuantity;
 	}
 
-	
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productNo=" + productNo + ", productCategory=" + productCategory + ", productName="
@@ -32,11 +32,11 @@ public class ProductDTO {
 				+ productQuantity + "]";
 	}
 
-	public String getProductNo() {
+	public Integer getProductNo() { // int 대신 Integer로 변경
 		return productNo;
 	}
 
-	public void setProductNo(String productNo) {
+	public void setProductNo(Integer productNo) { // int 대신 Integer로 변경
 		this.productNo = productNo;
 	}
 
