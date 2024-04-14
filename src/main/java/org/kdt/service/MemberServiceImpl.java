@@ -7,8 +7,6 @@ import org.kdt.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 public class MemberServiceImpl implements MemberService {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	private final MemberDAO memberDAO;
@@ -20,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int insertMember(MemberDTO dto) {
 		int n = 0;
-        if(confirmIdAndEmailDuplication(dto)){
+        if(checkIdAndEmailDuplication(dto)){
             return -1;
         }
 		try(SqlSession session = Config.getConnection()) {
@@ -56,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
         }else return false;
     }
 
-    private boolean confirmIdAndEmailDuplication(MemberDTO memberDTO){
+    private boolean checkIdAndEmailDuplication(MemberDTO memberDTO){
         try(SqlSession session = Config.getConnection()){
         return !memberDAO.findByIdOrEmail(session, memberDTO).isEmpty();
         }

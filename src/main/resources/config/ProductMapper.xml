@@ -9,31 +9,34 @@
     <insert id="insertProduct" parameterType="ProductDTO">
         insert into product
         (product_category, product_name, product_date, product_price, product_quantity)
-        values (#{productCategory}, #{productName}, #{productDate}, #{productPrice}, #{productQuantity})
+        values (#{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
     </insert>
     
     <!-- 제품 조회 -->
     <select id="selectProduct" resultType="ProductDTO">
         select * from product
     </select>
-    
+    <select id="findByAll" resultType="ProductDTO">
+        select * from product
+    </select>
+
     <!-- 제품 삭제 -->
     <delete id="deleteProduct" parameterType="ProductDTO">
         delete from product
-        where product_no = #{productNo}
-        and product_category = #{productCategory}
-        and product_name = #{productName}
+        where product_no = #{product_no}
+        and product_category = #{product_category}
+        and product_name = #{product_name}
     </delete>
     
     <!-- 제품 수정 -->
     <update id="updateProduct" parameterType="ProductDTO">
         update product
-        set product_category = #{productCategory},
-            product_name = #{productName},
-            product_date = #{productDate},
-            product_price = #{productPrice},
-            product_quantity = #{productQuantity}
-        where product_no = #{productNo}
+        set product_category = #{product_category},
+            product_name = #{product_name},
+            product_date = #{product_date},
+            product_price = #{product_price},
+            product_quantity = #{product_quantity}
+        where product_no = #{product_no}
     </update>
 
 </mapper>

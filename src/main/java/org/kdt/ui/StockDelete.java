@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
@@ -48,7 +49,7 @@ public class StockDelete extends JFrame {
      * Create the frame.
      */
     public StockDelete() {
-        productService = new ProductServiceImpl();
+        productService = new ProductServiceImpl(new ProductDAO());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 350, 300);

@@ -3,81 +3,88 @@ package org.kdt.dto;
 import java.sql.Date;
 
 public class ProductDTO {
-	private Integer productNo; // int 대신 Integer로 변경
-	private String productCategory;
-	private String productName;
-	private Date productDate;
-	private int productPrice;
-	private int productQuantity;
+	private Integer product_no; // int 대신 Integer로 변경
+	private String product_category;
+	private String product_name;
+	private Date product_date;
+	private int product_price;
+	private int product_quantity;
 
 	public ProductDTO() {
 
 	}
 
-	public ProductDTO(Integer productNo, String productCategory, String productName, Date productDate, int productPrice,
-			int productQuantity) {
-		this.productNo = productNo;
-		this.productCategory = productCategory;
-		this.productName = productName;
-		this.productDate = productDate;
-		this.productPrice = productPrice;
-		this.productQuantity = productQuantity;
+	public ProductDTO(Integer product_no, String product_category, String product_name, Date product_date, int product_price,
+					  int product_quantity) {
+		this.product_no = product_no;
+		this.product_category = product_category;
+		this.product_name = product_name;
+		this.product_date = product_date;
+		this.product_price = product_price;
+		this.product_quantity = product_quantity;
 	}
-
+	public ProductDTO(String product_category, String product_name, Date product_date, int product_price,
+					  int product_quantity) {
+		this.product_category = product_category;
+		this.product_name = product_name;
+		this.product_date = product_date;
+		this.product_price = product_price;
+		this.product_quantity = product_quantity;
+	}
 
 	@Override
 	public String toString() {
-		return "ProductDTO [productNo=" + productNo + ", productCategory=" + productCategory + ", productName="
-				+ productName + ", productDate=" + productDate + ", productPrice=" + productPrice + ", productQuantity="
-				+ productQuantity + "]";
+		return "ProductDTO [productNo=" + product_no + ", productCategory=" + product_category + ", productName="
+				+ product_name + ", productDate=" + product_date + ", productPrice=" + product_price + ", productQuantity="
+				+ product_quantity + "]";
 	}
 
-	public Integer getProductNo() { // int 대신 Integer로 변경
-		return productNo;
+	public Integer getProduct_no() { // int 대신 Integer로 변경
+		return product_no;
 	}
 
-	public void setProductNo(Integer productNo) { // int 대신 Integer로 변경
-		this.productNo = productNo;
+	public void setProduct_no(Integer product_no) { // int 대신 Integer로 변경
+		this.product_no = product_no;
 	}
 
-	public String getProductCategory() {
-		return productCategory;
+	public String getProduct_category() {
+		return product_category;
 	}
 
-	public void setProductCategory(String productCategory) {
-		this.productCategory = productCategory;
+	public void setProduct_category(String product_category) {
+		this.product_category = product_category;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getProduct_name() {
+		return product_name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 
-	public Date getProductDate() {
-		return productDate;
+	public Date getProduct_date() {
+		return product_date;
 	}
 
-	public void setProductDate(Date productDate) {
-		this.productDate = productDate;
+	public void setProduct_date(Date product_date) {
+		this.product_date = product_date;
 	}
 
-	public int getProductPrice() {
-		return productPrice;
+	public int getProduct_price() {
+		return product_price;
 	}
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
 	}
 
-	public int getProductQuantity() {
-		return productQuantity;
+	public int getProduct_quantity() {
+		return product_quantity;
 	}
 
-	public void setProductQuantity(int productQuantity) {
-		this.productQuantity = productQuantity;
+	public void setProduct_quantity(int product_quantity) {
+		this.product_quantity = product_quantity;
 	}
 
 }

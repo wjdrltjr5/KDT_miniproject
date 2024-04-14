@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
@@ -42,7 +43,7 @@ public class AdminStockAdd extends JFrame {
     }
 
     public AdminStockAdd() {
-        productService = new ProductServiceImpl();
+        productService = new ProductServiceImpl(new ProductDAO());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 350, 400);
@@ -113,9 +114,10 @@ public class AdminStockAdd extends JFrame {
                     java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 
                     // 제품 객체 생성
-                    ProductDTO newProduct = new ProductDTO(0, productCategory, productName, currentDate, productPrice,
+                    /*ProductDTO newProduct = new ProductDTO(0, productCategory, productName, currentDate, productPrice,
+                            productQuantity);*/
+                    ProductDTO newProduct = new ProductDTO(productCategory, productName, currentDate, productPrice,
                             productQuantity);
-
                     // 제품 추가
                     int result = productService.insertProduct(newProduct);
                     if (result > 0) {

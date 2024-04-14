@@ -9,10 +9,11 @@ public interface ProductService {
 
     int insertProduct(ProductDTO dto) throws DuplicatedProductnoException;
 
+
    // int deleteProduct(Integer productNo);
     int deleteProduct(ProductDTO product);
 
-    int insertDelete(ProductDTO dto, Integer ProductNo) throws DuplicatedProductnoException;
+//    int insertDelete(ProductDTO dto, Integer ProductNo) throws DuplicatedProductnoException;
 
     int updateProduct(ProductDTO dto) throws DuplicatedProductnoException;
 }
