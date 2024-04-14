@@ -1,7 +1,6 @@
 package org.kdt.ui;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -19,7 +18,7 @@ import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
 
 public class InsertMember extends JFrame {
-	MemberService memberService;
+	private MemberService memberService;
 	private JPanel contentPane;
 	private JTextField textField_id;
 	private JTextField textField_pw;
@@ -31,26 +30,21 @@ public class InsertMember extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InsertMember frame = new InsertMember();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+            try {
+                InsertMember frame = new InsertMember();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public InsertMember() {
-		
-		memberService = new MemberServiceImpl();
-		memberService.setMemberDAO(new MemberDAO());
-		MemberDTO memberDTO = new MemberDTO();
+		memberService = new MemberServiceImpl(new MemberDAO());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 506, 529);
@@ -119,34 +113,34 @@ public class InsertMember extends JFrame {
 		btnInsertMember.setBounds(183, 394, 91, 23);
 		contentPane.add(btnInsertMember);
 		
-		btnInsertMember.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-		        String name = textField_name.getText();
-		        String id = textField_id.getText();
-		        String pw = textField_pw.getText();
-		        String chpw = textField_chpw.getText();
-		        String em = textField_em.getText();
-		        
-		        if (name.isEmpty() || id.isEmpty() || pw.isEmpty() || chpw.isEmpty() || em.isEmpty()) {		     
-		            JOptionPane.showMessageDialog(null, "모든 입력란을 채워주세요.", "경고", JOptionPane.WARNING_MESSAGE);
-		        } else if (!pw.equals(chpw)) {
-		            JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다. 다시 확인해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
-		        } else {		         
-		            memberDTO.setMember_name(name);
-		            memberDTO.setMember_id(id);
-		            memberDTO.setMember_passwd(pw);
-		            memberDTO.setMember_email(em);
-		            int result = memberService.insertMember(memberDTO);
-		            
-		            JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "회원가입 성공", JOptionPane.INFORMATION_MESSAGE);
-					setVisible(false);
-					new Login().setVisible(true);
-					
-					
-				}
-			}
-		});
+		btnInsertMember.addActionListener(signUp);
 	}
+	private ActionListener signUp = x -> {
+		String name = textField_name.getText();
+		String id = textField_id.getText();
+		String pw = textField_pw.getText();
+		String chpw = textField_chpw.getText();
+		String em = textField_em.getText();
+
+		if (name.isEmpty() || id.isEmpty() || pw.isEmpty() || chpw.isEmpty() || em.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "모든 입력란을 채워주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+		} else if (!pw.equals(chpw)) {
+			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다. 다시 확인해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+		} else {
+			MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setMember_name(name);
+			memberDTO.setMember_id(id);
+			memberDTO.setMember_passwd(pw);
+			memberDTO.setMember_email(em);
+			int i = memberService.insertMember(memberDTO);
+			if(i == -1){
+				JOptionPane.showMessageDialog(null, "아이디 또는 이메일 중복입니다.", "회원가입 실패", JOptionPane.INFORMATION_MESSAGE);
+			}else {
+
+			JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "회원가입 성공", JOptionPane.INFORMATION_MESSAGE);
+			setVisible(false);
+			new Login().setVisible(true);
+			}
+		}
+	};
 }

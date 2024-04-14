@@ -46,9 +46,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-
-		memberService = new MemberServiceImpl();
-		memberService.setMemberDAO(new MemberDAO());
+		memberService = new MemberServiceImpl(new MemberDAO());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);
@@ -90,7 +88,7 @@ public class Login extends JFrame {
 
 	}
 
-	private final ActionListener login = x -> {
+	private ActionListener login = x -> {
 
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMember_id(tfId.getText());
@@ -99,7 +97,6 @@ public class Login extends JFrame {
 		if(memberService.login(memberDTO)){
 			log.info("로그인 성공");
 			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
-			// 다음화면으로 넘길 DTO
 			memberDTO = memberService.findbyId(memberDTO.getMember_id());
 			log.info("memberDTO {}", memberDTO);
 		}else{
@@ -107,7 +104,7 @@ public class Login extends JFrame {
 			log.info("로그인 실패");
 		}
 	};
-	private final ActionListener insertMember = x ->{
+	private ActionListener insertMember = x ->{
 		InsertMember insertMember = new InsertMember();
 		this.setVisible(false);
 		insertMember.setVisible(true);
