@@ -27,7 +27,7 @@ public class StockModify extends JFrame {
 
     // MySQL 연결을 위한 정보
     String driver = "com.mysql.cj.jdbc.Driver";
-    String url = "jdbc:mysql://localhost:3306/miniproject1";
+    String url = "jdbc:mysql://localhost:3306/testdb";
     String userid = "root";
     String passwd = "1234";
 
