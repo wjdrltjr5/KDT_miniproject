@@ -100,8 +100,12 @@ public class Login extends JFrame {
 			log.info("로그인 성공");
 			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
 			// 다음화면으로 넘길 DTO
-			memberDTO = memberService.findbyId(memberDTO.getMember_id());
+			memberDTO = memberService.findbyId(memberDTO.getMember_id());		
 			log.info("memberDTO {}", memberDTO);
+			
+			Main main = new Main();
+			this.setVisible(false);
+			main.setVisible(true);
 		}else{
 			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");
 			log.info("로그인 실패");
