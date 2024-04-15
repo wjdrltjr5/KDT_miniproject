@@ -5,10 +5,6 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-import org.kdt.ui.admin.StockDelete;
-import org.kdt.ui.admin.StockInsert;
-import org.kdt.ui.admin.StockModify;
-import org.kdt.ui.admin.StockRequest;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -101,9 +97,10 @@ public class UserStockRequset extends JFrame {
 		addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose(); 
+                dispose();
             }
         });
+
 
 
 	} // ProductMain END.

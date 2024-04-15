@@ -1,9 +1,12 @@
 package org.kdt.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MembersProductDAO {
 
@@ -42,6 +45,27 @@ public class MembersProductDAO {
 
     public int deleteStock(SqlSession session, MembersProductDTO membersProductDTO){
         return session.delete("MembersProductMapper.stockDelete", membersProductDTO);
+    }
+
+    public List<MembersProductDTO> findByMemberNoAndProductsCategory(SqlSession session, MemberDTO memberDTO, String category){
+        Map<String,String> map = new HashMap<>();
+        map.put("member_no", String.valueOf(memberDTO.getMember_no()));
+        map.put("category", category);
+        return session.selectList("MembersProductMapper.findByMemberNoAndProductsCategory",map);
+    }
+
+    public List<MembersProductDTO> findByMemberNoAndProductsCategoryOrProductName(SqlSession session, MemberDTO memberDTO, String keyword){
+        Map<String, String> map = new HashMap<>();
+        map.put("member_no", String.valueOf(memberDTO.getMember_no()));
+        map.put("searchKeyword", keyword);
+        return session.selectList("MembersProductMapper.findByMemberNoAndProductsCategoryOrProductName", map);
+    }
+
+    public List<MembersProductDTO>  findByMemberNoAndProductsName(SqlSession session, MemberDTO memberDTO, String productName){
+        Map<String, String> map = new HashMap<>();
+        map.put("member_no", String.valueOf(memberDTO.getMember_no()));
+        map.put("name", productName);
+        return session.selectList("MembersProductMapper.findByMemberNoAndProductsName",map);
     }
 
 }

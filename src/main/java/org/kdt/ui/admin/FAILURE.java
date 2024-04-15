@@ -44,12 +44,12 @@ public class FAILURE extends JFrame {
 		contentPane.add(btnFailure);
 
 		btnFailure.addActionListener(e -> btnFailureBtnAction());
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose(); 
+                dispose();
             }
         });
 	}

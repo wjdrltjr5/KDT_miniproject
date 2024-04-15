@@ -107,7 +107,7 @@ public class StockRequest extends JFrame {
 		addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose(); 
+                dispose();
             }
         });
 

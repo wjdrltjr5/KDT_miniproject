@@ -19,6 +19,7 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
+import org.kdt.ui.StockModify;
 
 public class ProductMain extends JFrame {
 
@@ -79,7 +80,7 @@ public class ProductMain extends JFrame {
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
 		
-		btnStockRequest = new JButton("입고 요청");
+		btnStockRequest = new JButton("입고 요청 처리");
 		btnStockRequest.setBounds(12, 80, 160, 95);
 		getContentPane().add(btnStockRequest);
 		

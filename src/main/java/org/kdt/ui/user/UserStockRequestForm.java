@@ -66,12 +66,12 @@ public class UserStockRequestForm extends JFrame {
         contentPane.add(btnInsertProduct);
 
         btnInsertProduct.addActionListener(e -> insertProductBtnAction());
-        
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose(); 
+                dispose();
             }
         });
     }

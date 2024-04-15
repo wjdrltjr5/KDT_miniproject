@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.kdt.Config;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
+import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
 
@@ -105,6 +106,27 @@ public class MembersProductServiceImpl implements MembersProductService{
             int result = membersProductDao.deleteStock(session, membersProductDTO);
             session.commit();
             return result;
+        }
+    }
+
+    @Override
+    public List<MembersProductDTO> findByMemberNoAndProductsCategory(MemberDTO memberDTO, String category) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.findByMemberNoAndProductsCategory(session,memberDTO,category);
+        }
+    }
+
+    @Override
+    public List<MembersProductDTO> findByMemberNoAndProductsCategoryOrProductName(MemberDTO memberDTO, String searchKeyword) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.findByMemberNoAndProductsCategoryOrProductName(session,memberDTO,searchKeyword);
+        }
+    }
+
+    @Override
+    public List<MembersProductDTO> findByMemberNoAndProductsName(MemberDTO memberDTO, String name) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.findByMemberNoAndProductsName(session,memberDTO,name);
         }
     }
 }

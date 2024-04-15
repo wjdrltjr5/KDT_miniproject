@@ -45,12 +45,12 @@ public class Permit extends JFrame {
 		contentPane.add(btnPermit);
 
 		btnPermit.addActionListener(e -> permitBtnAction());
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose(); 
+                dispose();
             }
         });
 	}
