@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -60,6 +62,15 @@ public class StockModify extends JFrame {
 
         btnSearchProduct.setBounds(126, 80, 200, 50);
         contentPane.add(btnSearchProduct);
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
+        
         }
     private void searchProductBtnAction(){
         // 입력된 제품 이름 가져오기

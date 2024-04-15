@@ -17,6 +17,8 @@ import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class StockDelete extends JFrame {
@@ -85,6 +87,14 @@ public class StockDelete extends JFrame {
         contentPane.add(btnDeleteProduct);
 
         btnDeleteProduct.addActionListener(e -> deleteProductBtnAction());
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
     }
 
     private void deleteProductBtnAction(){

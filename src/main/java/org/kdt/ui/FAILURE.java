@@ -5,6 +5,9 @@ import org.kdt.dao.ProductDAO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -41,6 +44,14 @@ public class FAILURE extends JFrame {
 		contentPane.add(btnFailure);
 
 		btnFailure.addActionListener(e -> btnFailureBtnAction());
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
 	}
 
 	private void btnFailureBtnAction(){

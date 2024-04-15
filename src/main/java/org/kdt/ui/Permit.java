@@ -6,6 +6,8 @@ import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -43,6 +45,14 @@ public class Permit extends JFrame {
 		contentPane.add(btnPermit);
 
 		btnPermit.addActionListener(e -> permitBtnAction());
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
 	}
 
 	private void permitBtnAction(){
