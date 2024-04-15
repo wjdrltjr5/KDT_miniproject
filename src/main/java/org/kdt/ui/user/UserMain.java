@@ -105,6 +105,8 @@ public class UserMain extends JFrame {
 
 		btnStockDelete.addActionListener(e -> stockDeleteBtnAction());
 
+		btnStockModify.addActionListener(e -> stockUpdateBtnAction());
+
 		btnSelectAll.addActionListener(e -> selectAllBtnAction());
 
 		searchButton.addActionListener(e -> searchBtnAction());
@@ -115,6 +117,12 @@ public class UserMain extends JFrame {
 
 
 	} // ProductMain END.
+
+	private void stockUpdateBtnAction() {
+		UserStockUpdate userStockUpdate = new UserStockUpdate(memberDTO);
+		userStockUpdate.setVisible(true);
+	}
+
 	private void stockDeleteBtnAction(){
 		UserStockDelete userStockDelete = new UserStockDelete(memberDTO);
 		userStockDelete.setVisible(true);

@@ -8,15 +8,6 @@ public class MembersProductDTO {
 	String product_name;
 	String product_category;
 	String status;
-
-	public int getProduct_price() {
-		return product_price;
-	}
-
-	public void setProduct_price(int product_price) {
-		this.product_price = product_price;
-	}
-
 	int product_price;
 	int product_quantity; // 재고량
 
@@ -89,6 +80,15 @@ public class MembersProductDTO {
 
 	public void setMember_product_no(String member_product_no) {
 		this.member_product_no = member_product_no;
+	}
+
+
+	public int getProduct_price() {
+		return product_price;
+	}
+
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
 	}
 
 	@Override

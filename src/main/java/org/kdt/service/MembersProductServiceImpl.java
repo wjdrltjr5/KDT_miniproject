@@ -37,8 +37,19 @@ public class MembersProductServiceImpl implements MembersProductService{
     public int requestOrderPermit(String orderNo){
         try(SqlSession session = Config.getConnection()){
             if(checkQuantity(session,orderNo)){
-                int result = membersProductDao.requestOrderPermit(session, orderNo);
-                session.commit();
+                int result;
+                if(checkPermitProduct(orderNo)){
+                    MembersProductDTO byOrderNo = membersProductDao.findByOrderNo(session,orderNo);
+                    MembersProductDTO dto = membersProductDao.findByPermitAndProductNoAndMemberNo(session, byOrderNo);
+                    dto.setProduct_quantity(dto.getProduct_quantity() + byOrderNo.getProduct_quantity());
+                    result = membersProductDao.updateStock(session, dto);
+                    membersProductDao.deleteByOrderNo(session,orderNo);
+                    session.commit();
+                }else {
+                    result = membersProductDao.requestOrderPermit(session, orderNo);
+                    session.commit();
+
+                }
                 return result;
             }
             return -1;
@@ -110,6 +121,15 @@ public class MembersProductServiceImpl implements MembersProductService{
     }
 
     @Override
+    public int updateStock(MembersProductDTO dto) {
+        try(SqlSession session = Config.getConnection()){
+            int result = membersProductDao.updateStock(session,dto);
+            session.commit();
+            return result;
+        }
+    }
+
+    @Override
     public List<MembersProductDTO> findByMemberNoAndProductsCategory(MemberDTO memberDTO, String category) {
         try(SqlSession session = Config.getConnection()){
             return membersProductDao.findByMemberNoAndProductsCategory(session,memberDTO,category);
@@ -127,6 +147,14 @@ public class MembersProductServiceImpl implements MembersProductService{
     public List<MembersProductDTO> findByMemberNoAndProductsName(MemberDTO memberDTO, String name) {
         try(SqlSession session = Config.getConnection()){
             return membersProductDao.findByMemberNoAndProductsName(session,memberDTO,name);
+        }
+    }
+
+    private boolean checkPermitProduct(String orderNo){
+        try(SqlSession session = Config.getConnection()){
+            MembersProductDTO byOrderNo = membersProductDao.findByOrderNo(session,orderNo);
+            MembersProductDTO dto = membersProductDao.findByPermitAndProductNoAndMemberNo(session, byOrderNo);
+            return dto != null;
         }
     }
 }
