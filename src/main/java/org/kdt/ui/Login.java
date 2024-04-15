@@ -15,6 +15,7 @@ import org.kdt.dto.MemberRole;
 import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
 import org.kdt.ui.admin.ProductMain;
+import org.kdt.ui.user.UserMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +103,9 @@ public class Login extends JFrame {
 				log.info("memberDTO {}", memberDTO);
 				ProductMain productMain = new ProductMain(memberDTO);
 				productMain.setVisible(true);
+			}else{
+				UserMain userMain = new UserMain(memberDTO);
+				userMain.setVisible(true);
 			}
 			setVisible(false);
 		}else{
