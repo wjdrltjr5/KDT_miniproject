@@ -9,10 +9,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MembersProductDTO;
-import org.kdt.dto.ProductDTO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;
@@ -34,6 +34,7 @@ public class StockRequest extends JFrame {
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.";
 	private JButton btnPermit;
 	private JButton btnFailure;
+	private JButton btnReturn;
 
 	// ProductMain
 	public StockRequest() {
@@ -84,6 +85,10 @@ public class StockRequest extends JFrame {
 		btnFailure.setBounds(926, 280, 111, 85);
 		getContentPane().add(btnFailure);
 		
+		btnReturn = new JButton("돌아가기");
+		btnReturn.setBounds(926, 504, 111, 23);
+		getContentPane().add(btnReturn);
+		
 	
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
@@ -102,12 +107,15 @@ public class StockRequest extends JFrame {
 		
 		restartButton.addActionListener(e -> restartBtnAction());
 
-
+		btnReturn.addActionListener(e -> returnToMainBtnAction());
 
 
 
 
 	} // ProductMain END.
+	private void returnToMainBtnAction() {
+		this.setVisible(false);
+	}
 	private void failureBtnAction(){
 		FAILURE failure = new FAILURE();
 		failure.setVisible(true);
@@ -197,5 +205,4 @@ public class StockRequest extends JFrame {
 
 		table.setModel(model);
 	} // 검색시 결과 END.
-
 }
