@@ -79,7 +79,7 @@ public class ProductMain extends JFrame {
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
 		
-		btnStockRequest = new JButton("입고 요청");
+		btnStockRequest = new JButton("입고 요청 처리");
 		btnStockRequest.setBounds(12, 80, 160, 95);
 		getContentPane().add(btnStockRequest);
 		

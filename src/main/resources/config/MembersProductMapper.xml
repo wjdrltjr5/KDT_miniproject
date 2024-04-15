@@ -62,4 +62,32 @@
     <delete id="stockDelete" parameterType="MembersProductDTO">
         delete from member_product where member_no = #{member_no} and product_no = #{product_no}
     </delete>
+
+    <select id="findByMemberNoAndProductsCategory" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no} and product_category = #{category}
+    </select>
+    <select id="findByMemberNoAndProductsCategoryOrProductName" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no}
+        and
+        (product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+        OR product_category LIKE CONCAT('%', #{searchKeyword}, '%'))
+    </select>
+    <select id="findByMemberNoAndProductsName" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no} and product_name = #{name}
+    </select>
 </mapper>
