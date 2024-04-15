@@ -89,6 +89,18 @@ public class ProductMainTest extends JFrame {
 		restartButton = new JButton("초기화");
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
+		
+		JButton btnStockRequest = new JButton("\uC785\uACE0\uC694\uCCAD");
+		btnStockRequest.setBounds(12, 80, 160, 95);
+		getContentPane().add(btnStockRequest);
+		
+		JButton btnStockModify = new JButton("\uC7AC\uACE0\uC218\uC815");
+		btnStockModify.setBounds(12, 185, 160, 95);
+		getContentPane().add(btnStockModify);
+		
+		JButton btnStockDelete = new JButton("\uC7AC\uACE0\uC0AD\uC81C");
+		btnStockDelete.setBounds(12, 290, 160, 95);
+		getContentPane().add(btnStockDelete);
 
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
