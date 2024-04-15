@@ -1,7 +1,6 @@
 package org.kdt.service;
 
 import org.kdt.dto.MembersProductDTO;
-import org.kdt.dto.ProductDTO;
 
 import java.util.List;
 
@@ -15,4 +14,8 @@ public interface MembersProductService {
     List<MembersProductDTO> selectProductsByCategory(String category);
     List<MembersProductDTO> searchProductByName(String name);
     List<MembersProductDTO> selectAllProducts(String searchKeyword);
+    List<MembersProductDTO> findByMemberNo(int memberNo);
+
+    int requestStock(MembersProductDTO membersProductDTO);
+    int deleteStock(MembersProductDTO membersProductDTO);
 }

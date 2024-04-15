@@ -2,7 +2,6 @@ package org.kdt.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.kdt.dto.MembersProductDTO;
-import org.kdt.dto.ProductDTO;
 
 import java.util.List;
 
@@ -33,4 +32,16 @@ public class MembersProductDAO {
     public int requestOrderFailure(SqlSession session, String orderNo) {
         return session.update("MembersProductMapper.requestOrderFailure",orderNo);
     }
+
+    public List<MembersProductDTO> findByMemberNo(SqlSession session, int memberNo) {
+        return session.selectList("MembersProductMapper.findByMemberNo",memberNo);
+    }
+    public int requestStock(SqlSession session, MembersProductDTO membersProductDTO){
+        return session.insert("MembersProductMapper.requestStock", membersProductDTO);
+    }
+
+    public int deleteStock(SqlSession session, MembersProductDTO membersProductDTO){
+        return session.delete("MembersProductMapper.stockDelete", membersProductDTO);
+    }
+
 }

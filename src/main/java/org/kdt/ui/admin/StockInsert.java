@@ -1,4 +1,4 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

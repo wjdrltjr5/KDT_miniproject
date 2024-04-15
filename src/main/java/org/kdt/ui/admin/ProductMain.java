@@ -1,6 +1,5 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
-import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.Box;
