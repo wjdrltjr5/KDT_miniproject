@@ -1,11 +1,10 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,12 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class StockModify extends JFrame {

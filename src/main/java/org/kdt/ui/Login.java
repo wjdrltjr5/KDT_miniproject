@@ -11,8 +11,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
+import org.kdt.dto.MemberRole;
 import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
+import org.kdt.ui.admin.ProductMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,9 +98,11 @@ public class Login extends JFrame {
 			log.info("로그인 성공");
 			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
 			memberDTO = memberService.findbyId(memberDTO.getMember_id());
-			log.info("memberDTO {}", memberDTO);
-			ProductMain productMain = new ProductMain(memberDTO);
-			productMain.setVisible(true);
+			if(memberDTO.getMember_role().equals(MemberRole.ADMIN.getRole())){
+				log.info("memberDTO {}", memberDTO);
+				ProductMain productMain = new ProductMain(memberDTO);
+				productMain.setVisible(true);
+			}
 			setVisible(false);
 		}else{
 			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");

@@ -1,4 +1,4 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;

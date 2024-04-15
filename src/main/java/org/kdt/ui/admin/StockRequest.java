@@ -1,4 +1,4 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MembersProductDTO;
-import org.kdt.dto.ProductDTO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;

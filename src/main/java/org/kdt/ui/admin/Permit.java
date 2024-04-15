@@ -1,4 +1,4 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
@@ -48,7 +48,7 @@ public class Permit extends JFrame {
 	private void permitBtnAction(){
 		int i = membersProductService.requestOrderPermit(orderNo.getText());
 		if(i < 0){
-			JOptionPane.showMessageDialog(null, "해당 주문이 존재하지 않습니다.");
+			JOptionPane.showMessageDialog(null, "허가가 불가능 합니다.");
 			setVisible(false);
 		}else {
 			JOptionPane.showMessageDialog(null, "허가하였습니다.");
