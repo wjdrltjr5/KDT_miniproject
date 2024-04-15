@@ -1,9 +1,11 @@
 package org.kdt.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.kdt.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.kdt.dto.MemberDTO;
+
+import java.util.List;
 
 public class MemberDAO {
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -16,4 +18,7 @@ public class MemberDAO {
         return session.selectOne("MemberMapper.findById", memberId);
     }
 
+	public List<MemberDTO> findByIdOrEmail(SqlSession session, MemberDTO memberDTO) {
+		return session.selectList("MemberMapper.findByIdOrEmail", memberDTO);
+	}
 }

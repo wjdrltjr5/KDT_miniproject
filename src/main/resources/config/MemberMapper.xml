@@ -17,4 +17,7 @@
         select * from member where member_id = #{memberId}
     </select>
 
+    <select id="findByIdOrEmail" resultType= "MemberDTO" parameterType="MemberDTO" >
+        select * from member where member_id = #{member_id} or member_email = #{member_email}
+    </select>
 </mapper>

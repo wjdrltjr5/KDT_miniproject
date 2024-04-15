@@ -14,11 +14,11 @@ class MemberServiceTest {
     void loginSuccess(){
         //given
         MemberDAO dao = new MemberDAO();
-        MemberService memberService = new MemberServiceImpl();
-        memberService.setMemberDAO(dao);
+        MemberService memberService = new MemberServiceImpl(dao);
+
         MemberDTO dto = new MemberDTO();
-        dto.setMember_id("test");
-        dto.setMember_passwd("1234");
+        dto.setMember_id("wjdrltjr");
+        dto.setMember_passwd("0000");
         //when
         boolean check = memberService.login(dto);
         //then
@@ -31,8 +31,7 @@ class MemberServiceTest {
     void loginFailed(){
         //given
         MemberDAO dao = new MemberDAO();
-        MemberService memberService = new MemberServiceImpl();
-        memberService.setMemberDAO(dao);
+        MemberService memberService = new MemberServiceImpl(dao);
         MemberDTO dto = new MemberDTO();
         dto.setMember_id("wjdrltjr");
         dto.setMember_passwd("123213124");
