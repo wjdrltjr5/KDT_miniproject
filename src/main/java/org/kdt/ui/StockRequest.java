@@ -31,8 +31,7 @@ public class StockRequest extends JFrame {
 	private JTextField textField; // 검색된 항목수 표시
 	private JButton restartButton; // 초기화
 
-	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
-			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
+	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.";
 	private JButton btnPermit;
 	private JButton btnFailure;
 
@@ -74,15 +73,15 @@ public class StockRequest extends JFrame {
 		textField.setColumns(10);
 		
 		restartButton = new JButton("초기화");
-		restartButton.setBounds(926, 185, 111, 23);
+		restartButton.setBounds(926, 470, 111, 23);
 		getContentPane().add(restartButton);
 		
 		btnPermit = new JButton("요청 허가");
-		btnPermit.setBounds(926, 229, 111, 85);
+		btnPermit.setBounds(926, 185, 111, 85);
 		getContentPane().add(btnPermit);
 
 		btnFailure = new JButton("반려하기");
-		btnFailure.setBounds(926, 358, 111, 85);
+		btnFailure.setBounds(926, 280, 111, 85);
 		getContentPane().add(btnFailure);
 		
 	
