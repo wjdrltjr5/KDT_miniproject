@@ -1,10 +1,11 @@
-package org.kdt.ui.admin;
+package org.kdt.ui;
 
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +14,16 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+
 import java.util.List;
 
 public class StockModify extends JFrame {
@@ -53,6 +64,15 @@ public class StockModify extends JFrame {
 
         btnSearchProduct.setBounds(126, 80, 200, 50);
         contentPane.add(btnSearchProduct);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
+
         }
     private void searchProductBtnAction(){
         // 입력된 제품 이름 가져오기
@@ -135,6 +155,14 @@ class ModifyProductInfo extends JFrame {
         btnModifyProduct.addActionListener(e -> modifyProductBtnAction());
         btnModifyProduct.setBounds(65, 281, 200, 40);
         contentPane.add(btnModifyProduct);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
 
     private void modifyProductBtnAction(){

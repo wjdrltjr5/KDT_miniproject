@@ -1,5 +1,7 @@
 package org.kdt.ui.admin;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -101,9 +103,13 @@ public class StockRequest extends JFrame {
 		
 		restartButton.addActionListener(e -> restartBtnAction());
 
-
-
-
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
 
 
 	} // ProductMain END.

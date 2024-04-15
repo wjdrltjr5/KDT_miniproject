@@ -5,13 +5,12 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-import org.kdt.ui.admin.StockDelete;
-import org.kdt.ui.admin.StockInsert;
-import org.kdt.ui.admin.StockModify;
-import org.kdt.ui.admin.StockRequest;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class UserStockRequset extends JFrame {
@@ -94,6 +93,13 @@ public class UserStockRequset extends JFrame {
 		
 		restartButton.addActionListener(e -> restartBtnAction());
 
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
 
 
 

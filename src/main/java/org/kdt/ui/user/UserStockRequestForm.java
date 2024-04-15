@@ -11,6 +11,9 @@ import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -63,6 +66,14 @@ public class UserStockRequestForm extends JFrame {
         contentPane.add(btnInsertProduct);
 
         btnInsertProduct.addActionListener(e -> insertProductBtnAction());
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
 
     private void insertProductBtnAction() {

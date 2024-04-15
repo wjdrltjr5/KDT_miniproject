@@ -1,5 +1,7 @@
 package org.kdt.ui;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -34,7 +36,6 @@ public class StockRequest extends JFrame {
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.";
 	private JButton btnPermit;
 	private JButton btnFailure;
-	private JButton btnReturn;
 
 	// ProductMain
 	public StockRequest() {
@@ -85,10 +86,6 @@ public class StockRequest extends JFrame {
 		btnFailure.setBounds(926, 280, 111, 85);
 		getContentPane().add(btnFailure);
 		
-		btnReturn = new JButton("돌아가기");
-		btnReturn.setBounds(926, 504, 111, 23);
-		getContentPane().add(btnReturn);
-		
 	
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
@@ -106,16 +103,17 @@ public class StockRequest extends JFrame {
 		searchButton.addActionListener(e -> searchBtnAction());
 		
 		restartButton.addActionListener(e -> restartBtnAction());
-
-		btnReturn.addActionListener(e -> returnToMainBtnAction());
-
-
-
+	
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
 
 	} // ProductMain END.
-	private void returnToMainBtnAction() {
-		this.setVisible(false);
-	}
+
 	private void failureBtnAction(){
 		FAILURE failure = new FAILURE();
 		failure.setVisible(true);
