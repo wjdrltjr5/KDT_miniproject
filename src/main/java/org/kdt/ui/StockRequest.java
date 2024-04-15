@@ -33,6 +33,7 @@ public class StockRequest extends JFrame {
 
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
+	private JButton btnPermit;
 
 	// ProductMain
 	public StockRequest() {
@@ -74,6 +75,10 @@ public class StockRequest extends JFrame {
 		restartButton = new JButton("초기화");
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
+		
+		btnPermit = new JButton("\uC694\uCCAD \uD5C8\uAC00");
+		btnPermit.setBounds(926, 229, 111, 85);
+		getContentPane().add(btnPermit);
 		
 	
 		comboBox.addItem("전체품목");
