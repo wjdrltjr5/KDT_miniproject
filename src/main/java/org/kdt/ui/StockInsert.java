@@ -1,8 +1,6 @@
 package org.kdt.ui;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +16,7 @@ import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
-public class AdminStockAdd extends JFrame {
+public class StockInsert extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -33,7 +31,7 @@ public class AdminStockAdd extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AdminStockAdd frame = new AdminStockAdd();
+                    StockInsert frame = new StockInsert();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -42,7 +40,7 @@ public class AdminStockAdd extends JFrame {
         });
     }
 
-    public AdminStockAdd() {
+    public StockInsert() {
         productService = new ProductServiceImpl(new ProductDAO());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,44 +95,41 @@ public class AdminStockAdd extends JFrame {
         textFieldProductQuantity.setBounds(126, 200, 200, 50);
         contentPane.add(textFieldProductQuantity);
 
-        JButton btnAddProduct = new JButton("추가하기");
-        btnAddProduct.setBounds(65, 281, 200, 40);
-        contentPane.add(btnAddProduct);
+        JButton btnInsertProduct = new JButton("추가하기");
+        btnInsertProduct.setBounds(65, 281, 200, 40);
+        contentPane.add(btnInsertProduct);
 
-        btnAddProduct.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    // 입력된 제품 정보 가져오기
-                    String productName = textFieldProductName.getText();
-                    String productCategory = textFieldProductCategory.getText();
-                    int productPrice = Integer.parseInt(textFieldProductPrice.getText());
-                    int productQuantity = Integer.parseInt(textFieldProductQuantity.getText());
+        btnInsertProduct.addActionListener(e -> insertProductBtnAction());
+    }
 
-                    // 현재 날짜를 java.sql.Date 형식으로 가져오기
-                    java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+    private void insertProductBtnAction() {
+        try {
+            // 입력된 제품 정보 가져오기
+            String productName = textFieldProductName.getText();
+            String productCategory = textFieldProductCategory.getText();
+            int productPrice = Integer.parseInt(textFieldProductPrice.getText());
+            int productQuantity = Integer.parseInt(textFieldProductQuantity.getText());
 
-                    // 제품 객체 생성
-                    /*ProductDTO newProduct = new ProductDTO(0, productCategory, productName, currentDate, productPrice,
-                            productQuantity);*/
-                    ProductDTO newProduct = new ProductDTO(productCategory, productName, currentDate, productPrice,
-                            productQuantity);
-                    // 제품 추가
-                    int result = productService.insertProduct(newProduct);
-                    if (result > 0) {
-                        JOptionPane.showMessageDialog(null, "제품이 추가되었습니다.");
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "제품 추가가 실패했습니다.");
 
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-
-                }
+            ProductDTO newProduct = new ProductDTO(productCategory, productName, currentDate, productPrice,
+                    productQuantity);
+            // 제품 추가
+            int result = productService.insertProduct(newProduct);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "제품이 추가되었습니다.");
+                setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "제품 추가가 실패했습니다.");
+                setVisible(false);
             }
-        });
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
     }
 }

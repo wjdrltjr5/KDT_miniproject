@@ -113,8 +113,10 @@ public class StockDelete extends JFrame {
             int result = productService.deleteProduct(productToDelete);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "제품이 삭제되었습니다.");
+                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "해당 제품이 존재하지 않습니다.");
+                setVisible(false);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");

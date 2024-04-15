@@ -106,9 +106,10 @@ public class ProductMain extends JFrame {
 		btnStockInsert = new JButton("재고 추가");
 		btnStockInsert.setBounds(12, 395, 160, 95);
 		getContentPane().add(btnStockInsert);
+
 		btnStockModify.addActionListener(x -> stockModifyBtnAction());
 		btnStockDelete.addActionListener(x -> stockDeleteBtnAction());
-
+		btnStockInsert.addActionListener(x -> stockInsertBtnAction());
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
 		comboBox.addItem("카테고리");
@@ -127,6 +128,12 @@ public class ProductMain extends JFrame {
 
 
 	} // ProductMain END.
+
+	private void stockInsertBtnAction() {
+		StockInsert stockInsert = new StockInsert();
+		stockInsert.setVisible(true);
+	}
+
 	private void stockModifyBtnAction(){
 		StockModify stockModify = new StockModify();
 		stockModify.setVisible(true);

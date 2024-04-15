@@ -77,13 +77,13 @@ public class StockModify extends JFrame {
         List<ProductDTO> list = productService.searchProductByName(productName);
         if (list.size() == 0) {
             JOptionPane.showMessageDialog(contentPane, "해당하는 제품이 없습니다.", "오류", JOptionPane.ERROR_MESSAGE);
-            return;
+            setVisible(false);
         }
         for (ProductDTO dto : list) {
             ModifyProductInfo modifyProductInfo = new ModifyProductInfo(dto);
             modifyProductInfo.setVisible(true);
         }
-
+        setVisible(false);
     }
 
 }
