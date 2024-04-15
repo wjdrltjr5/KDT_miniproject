@@ -40,17 +40,6 @@ public class ProductMain extends JFrame {
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
 	private JButton btnStockInsert;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(() -> {
-//            try {
-//                ProductMain frame = new ProductMain();
-//                frame.setVisible(true);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//	} // main end
-
 	// ProductMain
 	public ProductMain(MemberDTO memberDTO) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -32,16 +32,6 @@ public class StockDelete extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                StockDelete frame = new StockDelete();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /**
      * Create the frame.

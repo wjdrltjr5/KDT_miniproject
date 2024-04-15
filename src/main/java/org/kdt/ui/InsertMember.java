@@ -26,19 +26,7 @@ public class InsertMember extends JFrame {
 	private JTextField textField_em;
 	private JTextField textField_name;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-            try {
-                InsertMember frame = new InsertMember();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-	}
+
 
 	/**
 	 * Create the frame.

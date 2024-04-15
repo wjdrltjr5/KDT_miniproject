@@ -27,18 +27,6 @@ public class StockInsert extends JFrame {
 
     private ProductService productService;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    StockInsert frame = new StockInsert();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     public StockInsert() {
         productService = new ProductServiceImpl(new ProductDAO());
