@@ -1,4 +1,10 @@
 package org.kdt.service;
-public class MembersProductService {
-	
+
+import org.kdt.dto.MembersProductDTO;
+
+import java.util.List;
+
+public interface MembersProductService {
+
+    List<MembersProductDTO> findByStatusHold();
 }

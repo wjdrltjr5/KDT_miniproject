@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MembersProductMapper">
+    <select id="findByStatusHold" resultType="MembersProductDTO">
+        select member_no, member_name,product_no,product_name, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where mp.status = '대기'
+    </select>
+</mapper>

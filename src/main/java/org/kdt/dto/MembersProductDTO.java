@@ -3,8 +3,10 @@ package org.kdt.dto;
 public class MembersProductDTO {
 	
 	String member_no; // 회원번호
+	String member_name;
 	String product_no; // 상품번호
 
+	String product_name;
 	String status;
 	int product_quantity; // 재고량
 
