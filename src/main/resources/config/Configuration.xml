@@ -32,5 +32,6 @@
     <mappers>
         <mapper resource="config/MemberMapper.xml"/>
         <mapper resource="config/ProductMapper.xml"/>
+        <mapper resource="config/MembersProductMapper.xml"/>
     </mappers>
 </configuration>
