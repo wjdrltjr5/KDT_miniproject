@@ -61,6 +61,7 @@
 
     <delete id="stockDelete" parameterType="MembersProductDTO">
         delete from member_product where member_no = #{member_no} and product_no = #{product_no}
+        and status = '허가'
     </delete>
 
     <select id="findByMemberNoAndProductsCategory" parameterType="map" resultType="MembersProductDTO">
@@ -90,4 +91,17 @@
         where
         mp.status = '허가' and member_no = #{member_no} and product_name = #{name}
     </select>
+
+    <update id="updateStock" parameterType="MembersProductDTO">
+        update member_product set product_quantity = #{product_quantity} where member_no = #{member_no}
+        and product_no = #{product_no}
+    </update>
+
+    <select id="findByPermitAndProductNoAndMemberNo" parameterType="MembersProductDTO" resultType="MembersProductDTO">
+        select * from member_product where status = '허가'
+        and product_no = #{product_no} and member_no = #{member_no}
+    </select>
+    <delete id="deleteByOrderNo" parameterType="String">
+        delete from member_product where member_product_no = #{orderNo}
+    </delete>
 </mapper>

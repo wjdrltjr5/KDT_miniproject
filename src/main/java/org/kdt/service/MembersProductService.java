@@ -25,4 +25,5 @@ public interface MembersProductService {
     List<MembersProductDTO> findByMemberNoAndProductsCategoryOrProductName(MemberDTO memberDTO,String searchKeyword);
     List<MembersProductDTO> findByMemberNoAndProductsName(MemberDTO memberDTO,String name);
 
+    int updateStock(MembersProductDTO dto);
 }

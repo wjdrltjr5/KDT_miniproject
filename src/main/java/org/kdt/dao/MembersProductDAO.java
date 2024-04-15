@@ -68,4 +68,15 @@ public class MembersProductDAO {
         return session.selectList("MembersProductMapper.findByMemberNoAndProductsName",map);
     }
 
+    public int updateStock(SqlSession session, MembersProductDTO membersProductDto) {
+        return session.update("MembersProductMapper.updateStock",membersProductDto);
+    }
+
+    public MembersProductDTO findByPermitAndProductNoAndMemberNo(SqlSession session, MembersProductDTO dto) {
+        return session.selectOne("MembersProductMapper.findByPermitAndProductNoAndMemberNo",dto);
+    }
+
+    public void deleteByOrderNo(SqlSession session, String orderNo){
+        session.delete("MembersProductMapper.deleteByOrderNo",orderNo);
+    }
 }
