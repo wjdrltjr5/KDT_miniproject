@@ -176,42 +176,40 @@ class ModifyProductInfo extends JFrame {
         contentPane.add(textFieldProductQuantity);
 
         JButton btnModifyProduct = new JButton("수정하기");
-        btnModifyProduct.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    // 수정된 제품 정보 가져오기
-                    String modifiedProductName = textFieldProductName.getText();
-                    String modifiedProductCategory = textFieldProductCategory.getText();
-                    String modifiedProductPrice = textFieldProductPrice.getText();
-                    String modifiedProductQuantity = textFieldProductQuantity.getText();
+        btnModifyProduct.addActionListener(e -> {
+            try {
+                // 수정된 제품 정보 가져오기
+                String modifiedProductName = textFieldProductName.getText();
+                String modifiedProductCategory = textFieldProductCategory.getText();
+                String modifiedProductPrice = textFieldProductPrice.getText();
+                String modifiedProductQuantity = textFieldProductQuantity.getText();
 
-                    // 데이터베이스 연결
-                    Connection conn = DriverManager.getConnection(url, userid, passwd);
+                // 데이터베이스 연결
+                Connection conn = DriverManager.getConnection(url, userid, passwd);
 
-                    // 제품 정보 업데이트
-                    String updateSql = "UPDATE product SET product_name = ?, product_category = ?, product_price = ?, product_quantity = ? WHERE product_name = ?";
-                    PreparedStatement updatePstmt = conn.prepareStatement(updateSql);
-                    updatePstmt.setString(1, modifiedProductName);
-                    updatePstmt.setString(2, modifiedProductCategory);
-                    updatePstmt.setString(3, modifiedProductPrice);
-                    updatePstmt.setString(4, modifiedProductQuantity);
-                    updatePstmt.setString(5, productName);
+                // 제품 정보 업데이트
+                String updateSql = "UPDATE product SET product_name = ?, product_category = ?, product_price = ?, product_quantity = ? WHERE product_name = ?";
+                PreparedStatement updatePstmt = conn.prepareStatement(updateSql);
+                updatePstmt.setString(1, modifiedProductName);
+                updatePstmt.setString(2, modifiedProductCategory);
+                updatePstmt.setString(3, modifiedProductPrice);
+                updatePstmt.setString(4, modifiedProductQuantity);
+                updatePstmt.setString(5, productName);
 
-                    int rowsAffected = updatePstmt.executeUpdate();
+                int rowsAffected = updatePstmt.executeUpdate();
 
-                    if (rowsAffected > 0) {
-                        JOptionPane.showMessageDialog(contentPane, "제품 정보가 성공적으로 수정되었습니다.", "성공",
-                                JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(contentPane, "제품 정보 수정에 실패했습니다.", "오류",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-
-                    updatePstmt.close();
-                    conn.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(contentPane, "제품 정보가 성공적으로 수정되었습니다.", "성공",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(contentPane, "제품 정보 수정에 실패했습니다.", "오류",
+                            JOptionPane.ERROR_MESSAGE);
                 }
+
+                updatePstmt.close();
+                conn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
         btnModifyProduct.setBounds(65, 281, 200, 40);

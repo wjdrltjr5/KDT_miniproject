@@ -19,6 +19,9 @@
     <select id="findByAll" resultType="ProductDTO">
         select * from product
     </select>
+    <select id="findByProductName" resultType="ProductDTO" parameterType="String">
+        select * from product where product_name = #{product_name}
+    </select>
 
     <!-- 제품 삭제 -->
     <delete id="deleteProduct" parameterType="ProductDTO">
