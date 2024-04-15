@@ -44,4 +44,40 @@ public class ProductServiceImpl implements ProductService {
             return n;
         }
     }
+	// 전체품목검색
+	@Override
+	public List<ProductDTO> selectAllProducts(String searchKeyword) {
+	    try (SqlSession session = Config.getConnection()){
+	        return productDAO.selectAllProducts(session, searchKeyword);
+	    }
+	}
+
+	// 동일한 제품명검색
+	@Override
+	public List<ProductDTO> searchProductByName(String name) {
+	    try (SqlSession session = Config.getConnection()){
+	        return productDAO.selectProductsByName(session, name);
+	    }
+	}
+	// 동일한 제품카테고리검색
+	@Override
+	public List<ProductDTO> selectProductsByCategory(String category) {
+	    try (SqlSession session = Config.getConnection()) {
+			return productDAO.selectProductsByCategory(session, category);
+		}
+	}
+	// 동일한 제품가격검색
+	@Override
+	public List<ProductDTO> searchProductByPrice(int price) {
+		try(SqlSession session = Config.getConnection()) {
+			return productDAO.searchProductByPrice(session, price);
+		}
+	}
+
+	@Override
+	public List<ProductDTO> selectProductsByPriceRange(double minPrice, double maxPrice) {
+		try (SqlSession session = Config.getConnection()) {
+			return productDAO.selectProductsByPriceRange(session, minPrice, maxPrice);
+		}
+	}
 }

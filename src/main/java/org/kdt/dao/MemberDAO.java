@@ -1,9 +1,9 @@
 package org.kdt.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.kdt.dto.MemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.kdt.dto.MemberDTO;
 
 import java.util.List;
 
