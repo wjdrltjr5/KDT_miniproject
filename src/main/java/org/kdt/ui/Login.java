@@ -102,7 +102,7 @@ public class Login extends JFrame {
 			// 다음화면으로 넘길 DTO
 			memberDTO = memberService.findbyId(memberDTO.getMember_id());		
 			log.info("memberDTO {}", memberDTO);
-			
+			// Main 조회화면으로 이동
 			Main main = new Main();
 			this.setVisible(false);
 			main.setVisible(true);

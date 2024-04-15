@@ -10,11 +10,15 @@ import org.kdt.dto.ProductDTO;
 
 public class ProductServiceImpl implements ProductService {
 
+//	String driver = "com.mysql.cj.jdbc.Driver";
+//	String url ="jdbc:mysql://127.0.0.1:3306/mini_project1";
+//	String userid = "root";
+//	String passwd = "ys320293!!@@";
+
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://localhost:3306/miniproject1";
     String userid = "root";
     String passwd = "1234";
-
     Connection con = null; // Connection 변수 선언
 
     public ProductServiceImpl() {
