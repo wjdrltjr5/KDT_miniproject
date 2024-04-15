@@ -13,7 +13,7 @@ public class Config {
 
     static {
         try {
-            String resource = "Configuration.xml";
+            String resource = "config/Configuration.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
