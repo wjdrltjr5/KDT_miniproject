@@ -34,6 +34,7 @@ public class StockRequest extends JFrame {
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
 	private JButton btnPermit;
+	private JButton btnFailure;
 
 	// ProductMain
 	public StockRequest() {
@@ -76,18 +77,25 @@ public class StockRequest extends JFrame {
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
 		
-		btnPermit = new JButton("\uC694\uCCAD \uD5C8\uAC00");
+		btnPermit = new JButton("요청 허가");
 		btnPermit.setBounds(926, 229, 111, 85);
 		getContentPane().add(btnPermit);
+
+		btnFailure = new JButton("반려하기");
+		btnFailure.setBounds(926, 358, 111, 85);
+		getContentPane().add(btnFailure);
 		
 	
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
 		comboBox.addItem("카테고리");
-		comboBox.addItem("가격");
 
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
+
+		btnPermit.addActionListener(e -> permitBtnAction());
+
+		btnFailure.addActionListener(e -> failureBtnAction());
 
 		btnSelectAll.addActionListener(e -> selectAllBtnAction());
 
@@ -98,9 +106,18 @@ public class StockRequest extends JFrame {
 
 
 
+
+
 	} // ProductMain END.
+	private void failureBtnAction(){
+		FAILURE failure = new FAILURE();
+		failure.setVisible(true);
+	}
 
-
+	private void permitBtnAction(){
+		Permit permit = new Permit();
+		permit.setVisible(true);
+	}
 	private void selectAllBtnAction(){
 		loadTableData();
 		// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
@@ -125,13 +142,13 @@ public class StockRequest extends JFrame {
 	private void searchBtnAction(){
 		String selectedCategory = comboBox.getSelectedItem().toString();
 		String searchKeyword = searchBar.getText();
-		List<ProductDTO> searchResults = null;
+		List<MembersProductDTO> searchResults = null;
 		if (selectedCategory.equals("전체품목")) {
-			searchResults = productService.selectAllProducts(searchKeyword);
+			searchResults = membersProductService.selectAllProducts(searchKeyword);
 		} else if (selectedCategory.equals("카테고리")) {
-			searchResults = productService.selectProductsByCategory(searchKeyword);
+			searchResults = membersProductService.selectProductsByCategory(searchKeyword);
 		} else if (selectedCategory.equals("제품이름")) {
-			searchResults = productService.searchProductByName(searchKeyword);
+			searchResults = membersProductService.searchProductByName(searchKeyword);
 		}
 		displaySearchResults(searchResults);
 	}
@@ -161,17 +178,17 @@ public class StockRequest extends JFrame {
 		return model;
 	}
 
-	private void displaySearchResults(List<ProductDTO> searchResults) {
+	private void displaySearchResults(List<MembersProductDTO> searchResults) {
 		DefaultTableModel model = getDefaultTableModel();
 
 		int numOfResults = 0; // 검색된 항목의 수를 저장하기 위한 변수
 
 		if (searchResults != null) {
 
-			for (ProductDTO product : searchResults) {
-				model.addRow(new Object[] {product.getProduct_no(), product.getProduct_category(),
-						product.getProduct_name(), product.getProduct_date(), product.getProduct_price(),
-						product.getProduct_quantity() });
+			for (MembersProductDTO dto : searchResults) {
+				model.addRow(
+						new Object[]{dto.getMember_product_no(),dto.getMember_no(), dto.getMember_name(), dto.getProduct_no(),
+								dto.getProduct_name(), dto.getProduct_category(), dto.getProduct_quantity(), dto.getStatus()});
 
 				numOfResults++; // 검색된 항목의 수를 증가시킴
 			}

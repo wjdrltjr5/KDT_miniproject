@@ -22,17 +22,27 @@ public class MembersProductServiceImpl implements MembersProductService{
             return membersProductDao.findByStatusHold(session);
         }
     }
+
+    @Override
+    public int requestOrderFailure(String OrderNo) {
+        try(SqlSession session = Config.getConnection()){
+        int result = membersProductDao.requestOrderFailure(session,OrderNo);
+        session.commit();
+        return result;
+        }
+    }
+
     @Override
     public int requestOrderPermit(String orderNo){
         try(SqlSession session = Config.getConnection()){
-            if(checkQuantity(orderNo)){
-                membersProductDao.requestOrderPermit(session,orderNo);
+            if(checkQuantity(session,orderNo)){
+                int result = membersProductDao.requestOrderPermit(session, orderNo);
+                session.commit();
+                return result;
             }
             return -1;
         }
     }
-
-
     @Override
     public MembersProductDTO findByNo(String orderNo) {
         try(SqlSession session = Config.getConnection()){
@@ -40,8 +50,7 @@ public class MembersProductServiceImpl implements MembersProductService{
         }
     }
 
-    private boolean checkQuantity(String orderNo){
-        try(SqlSession session = Config.getConnection()){
+    private boolean checkQuantity(SqlSession session,String orderNo){
             MembersProductDTO request = membersProductDao.findByOrderNo(session, orderNo);
             ProductDTO productDto = productDao.findByNo(session,request.getProduct_no());
             if(request.getProduct_quantity() > productDto.getProduct_quantity()){
@@ -50,9 +59,28 @@ public class MembersProductServiceImpl implements MembersProductService{
                 deductStockQuantities(session,productDto,request);
                 return true;
             }
-        }
     }
     private int deductStockQuantities(SqlSession session,ProductDTO productDTO, MembersProductDTO membersProductDTO){
         return productDao.deductStockQuanties(session, productDTO, membersProductDTO);
+    }
+
+    @Override
+    public List<MembersProductDTO> selectProductsByCategory(String category) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.selectProductsByCategory(session,category);
+        }
+    }
+    @Override
+    public List<MembersProductDTO> searchProductByName(String name) {
+        try(SqlSession session = Config.getConnection()){
+        return membersProductDao.searchProductByName(session,name);
+        }
+    }
+
+    @Override
+    public List<MembersProductDTO> selectAllProducts(String searchKeyword) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.selectProductByAll(session,searchKeyword);
+        }
     }
 }

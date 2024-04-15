@@ -5,12 +5,10 @@ import org.kdt.dao.ProductDAO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class Permit extends JFrame {
+public class FAILURE extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +16,7 @@ public class Permit extends JFrame {
 	private JPanel contentPane;
 	private JTextField orderNo;
 
-	public Permit() {
+	public FAILURE() {
 		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -38,20 +36,20 @@ public class Permit extends JFrame {
 		contentPane.add(orderNo);
 		orderNo.setColumns(10);
 		
-		JButton btnPermit = new JButton("허가하기");
-		btnPermit.setBounds(126, 106, 200, 40);
-		contentPane.add(btnPermit);
+		JButton btnFailure = new JButton("반려하기");
+		btnFailure.setBounds(126, 106, 200, 40);
+		contentPane.add(btnFailure);
 
-		btnPermit.addActionListener(e -> permitBtnAction());
+		btnFailure.addActionListener(e -> btnFailureBtnAction());
 	}
 
-	private void permitBtnAction(){
-		int i = membersProductService.requestOrderPermit(orderNo.getText());
+	private void btnFailureBtnAction(){
+		int i = membersProductService.requestOrderFailure(orderNo.getText());
 		if(i < 0){
 			JOptionPane.showMessageDialog(null, "해당 주문이 존재하지 않습니다.");
 			setVisible(false);
 		}else {
-			JOptionPane.showMessageDialog(null, "허가하였습니다.");
+			JOptionPane.showMessageDialog(null, "반려하였습니다.");
 			setVisible(false);
 		}
 	}

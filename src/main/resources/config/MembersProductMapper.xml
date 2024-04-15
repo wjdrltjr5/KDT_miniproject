@@ -17,4 +17,30 @@
     <update id="requestOrderPermit" parameterType="String">
         update member_product set status = '허가' where member_product_no = #{orderNo}
     </update>
+    <update id="requestOrderFailure" parameterType="String">
+        update member_product set status = '거절' where member_product_no = #{orderNo}
+    </update>
+    <select id="selectProductsByCategory" parameterType="String" resultType="MembersProductDTO">
+            select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+            from member_product mp inner join member m using (member_no)
+            inner join product p using (product_no)
+            where mp.status = '대기' and product_category = #{category}
+    </select>
+
+    <select id="searchProductByName" parameterType="String" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where mp.status = '대기' and product_name = #{name}
+    </select>
+
+    <select id="selectProductByAll" parameterType="String" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        WHERE
+        mp.status = '대기' and
+        product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+        OR product_category LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
 </mapper>
