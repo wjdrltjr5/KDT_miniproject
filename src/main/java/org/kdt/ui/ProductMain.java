@@ -38,6 +38,7 @@ public class ProductMain extends JFrame {
 	private JButton btnStockDelete;
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
+	private JButton btnStockInsert;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(() -> {
@@ -101,6 +102,10 @@ public class ProductMain extends JFrame {
 		btnStockDelete = new JButton("재고 삭제");
 		btnStockDelete.setBounds(12, 290, 160, 95);
 		getContentPane().add(btnStockDelete);
+		
+		btnStockInsert = new JButton("재고 추가");
+		btnStockInsert.setBounds(12, 395, 160, 95);
+		getContentPane().add(btnStockInsert);
 		btnStockModify.addActionListener(x -> stockModifyBtnAction());
 		btnStockDelete.addActionListener(x -> stockDeleteBtnAction());
 
