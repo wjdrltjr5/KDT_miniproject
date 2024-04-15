@@ -107,6 +107,8 @@ public class ProductMain extends JFrame {
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
 
+		btnStockRequest.addActionListener(x ->stockRequestBtnAction());
+
 		btnSelectAll.addActionListener(e -> selectAllBtnAction());
 
 		searchButton.addActionListener(e -> searchBtnAction());
@@ -118,6 +120,10 @@ public class ProductMain extends JFrame {
 
 	} // ProductMain END.
 
+	private void stockRequestBtnAction(){
+		StockRequest stockRequest = new StockRequest();
+		stockRequest.setVisible(true);
+	}
 	private void stockInsertBtnAction() {
 		StockInsert stockInsert = new StockInsert();
 		stockInsert.setVisible(true);
@@ -170,13 +176,7 @@ public class ProductMain extends JFrame {
 		displaySearchResults(searchResults);
 	}
 	private void loadTableData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Product No");
-		model.addColumn("Category");
-		model.addColumn("Name");
-		model.addColumn("Date");
-		model.addColumn("Price");
-		model.addColumn("Quantity");
+		DefaultTableModel model = getDefaultTableModel();
 		model.setRowCount(0);
 		List<ProductDTO> products = productService.findByAll();
 		for (ProductDTO product : products) {
@@ -187,7 +187,7 @@ public class ProductMain extends JFrame {
 		table.setModel(model);
 	} // 전체테이블조회 END.
 
-	private void displaySearchResults(List<ProductDTO> searchResults) {
+	private DefaultTableModel getDefaultTableModel() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Product No");
 		model.addColumn("Category");
@@ -195,6 +195,11 @@ public class ProductMain extends JFrame {
 		model.addColumn("Date");
 		model.addColumn("Price");
 		model.addColumn("Quantity");
+		return model;
+	}
+
+	private void displaySearchResults(List<ProductDTO> searchResults) {
+		DefaultTableModel model = getDefaultTableModel();
 
 		int numOfResults = 0; // 검색된 항목의 수를 저장하기 위한 변수
 

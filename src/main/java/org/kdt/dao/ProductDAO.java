@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
 
 public class ProductDAO {
@@ -55,5 +56,14 @@ public class ProductDAO {
 		return session.selectList("selectProductsByPriceRange", params);
 	}
 	
+	public ProductDTO findByNo(SqlSession session, String productNo){
+		return session.selectOne("ProductMapper.findByNo",productNo);
+	}
 
+	public int deductStockQuanties(SqlSession session, ProductDTO productDTO, MembersProductDTO membersProductDTO) {
+		Map<String,Integer> map = new HashMap<>();
+		map.put("order_quantity", membersProductDTO.getProduct_quantity());
+		map.put("product_no",productDTO.getProduct_no());
+		return session.update("ProductMapper.deductStockQuantities", map);
+	}
 }

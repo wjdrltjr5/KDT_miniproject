@@ -5,9 +5,16 @@
 
 <mapper namespace="MembersProductMapper">
     <select id="findByStatusHold" resultType="MembersProductDTO">
-        select member_no, member_name,product_no,product_name, mp.product_quantity, status
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
         from member_product mp inner join member m using (member_no)
         inner join product p using (product_no)
         where mp.status = '대기'
     </select>
+    <select id="findByOrderNo" resultType="MembersProductDTO" parameterType="String">
+        select * from member_product where member_product_no = #{orderNo}
+    </select>
+
+    <update id="requestOrderPermit" parameterType="String">
+        update member_product set status = '허가' where member_product_no = #{orderNo}
+    </update>
 </mapper>

@@ -1,23 +1,20 @@
 package org.kdt.ui;
 
-import java.awt.EventQueue;
 import java.util.List;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
-import org.kdt.dto.MemberDTO;
+import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
+import org.kdt.service.MembersProductService;
+import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
@@ -26,6 +23,7 @@ public class StockRequest extends JFrame {
 	private JButton btnSelectAll; // 전체 테이블 조회버튼
 	private JTable table; // 테이블
 	private ProductService productService;
+	private final MembersProductService membersProductService;
 
 	JComboBox<String> comboBox; // 검색조건box
 	private JTextField searchBar; // 검색bar
@@ -37,7 +35,8 @@ public class StockRequest extends JFrame {
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
 
 	// ProductMain
-	public StockRequest(MemberDTO memberDTO) {
+	public StockRequest() {
+		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
@@ -96,19 +95,7 @@ public class StockRequest extends JFrame {
 
 	} // ProductMain END.
 
-	private void stockInsertBtnAction() {
-		StockInsert stockInsert = new StockInsert();
-		stockInsert.setVisible(true);
-	}
 
-	private void stockModifyBtnAction(){
-		StockModify stockModify = new StockModify();
-		stockModify.setVisible(true);
-	}
-	private void stockDeleteBtnAction(){
-		StockDelete stockDelete = new StockDelete();
-		stockDelete.setVisible(true);
-	}
 	private void selectAllBtnAction(){
 		loadTableData();
 		// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
@@ -140,46 +127,44 @@ public class StockRequest extends JFrame {
 			searchResults = productService.selectProductsByCategory(searchKeyword);
 		} else if (selectedCategory.equals("제품이름")) {
 			searchResults = productService.searchProductByName(searchKeyword);
-		} else if (selectedCategory.equals("가격")) {
-			// 가격 범위를 설정하는 다이얼로그 띄우기
-			showPriceRangeDialog();
-			return; // 다이얼로그가 닫히면서 추가 검색을 하지 않도록 리턴
 		}
 		displaySearchResults(searchResults);
 	}
 	private void loadTableData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Product No");
-		model.addColumn("Category");
-		model.addColumn("Name");
-		model.addColumn("Date");
-		model.addColumn("Price");
-		model.addColumn("Quantity");
+		DefaultTableModel model = getDefaultTableModel();
 		model.setRowCount(0);
-		List<ProductDTO> products = productService.findByAll();
-		for (ProductDTO product : products) {
+		List<MembersProductDTO> lists = membersProductService.findByStatusHold();
+
+		for(MembersProductDTO dto : lists){
 			model.addRow(
-					new Object[] { product.getProduct_no(), product.getProduct_category(), product.getProduct_name(),
-							product.getProduct_date(), product.getProduct_price(), product.getProduct_quantity() });
+					new Object[]{dto.getMember_product_no(),dto.getMember_no(), dto.getMember_name(), dto.getProduct_no(),
+							dto.getProduct_name(), dto.getProduct_category(), dto.getProduct_quantity(), dto.getStatus()});
 		}
+
 		table.setModel(model);
 	} // 전체테이블조회 END.
 
-	private void displaySearchResults(List<ProductDTO> searchResults) {
+	private DefaultTableModel getDefaultTableModel() {
 		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Order No");
+		model.addColumn("Member No");
+		model.addColumn("Member Name");
 		model.addColumn("Product No");
-		model.addColumn("Category");
 		model.addColumn("Name");
-		model.addColumn("Date");
-		model.addColumn("Price");
-		model.addColumn("Quantity");
+		model.addColumn("Category");
+		model.addColumn("Request Quantity");
+		return model;
+	}
+
+	private void displaySearchResults(List<ProductDTO> searchResults) {
+		DefaultTableModel model = getDefaultTableModel();
 
 		int numOfResults = 0; // 검색된 항목의 수를 저장하기 위한 변수
 
 		if (searchResults != null) {
 
 			for (ProductDTO product : searchResults) {
-				model.addRow(new Object[] { product.getProduct_no(), product.getProduct_category(),
+				model.addRow(new Object[] {product.getProduct_no(), product.getProduct_category(),
 						product.getProduct_name(), product.getProduct_date(), product.getProduct_price(),
 						product.getProduct_quantity() });
 
@@ -192,34 +177,4 @@ public class StockRequest extends JFrame {
 		table.setModel(model);
 	} // 검색시 결과 END.
 
-	// 가격 범위를 설정
-	private void showPriceRangeDialog() {
-		JTextField minPriceField = new JTextField(5);
-		JTextField maxPriceField = new JTextField(5);
-
-		JPanel panel = new JPanel();
-		panel.add(new JLabel("최소 가격:"));
-		panel.add(minPriceField);
-		panel.add(Box.createHorizontalStrut(15)); // 간격 조절
-		panel.add(new JLabel("최대 가격:"));
-		panel.add(maxPriceField);
-
-		int result = JOptionPane.showConfirmDialog(null, panel, "가격 범위 입력", JOptionPane.OK_CANCEL_OPTION);
-		if (result == JOptionPane.OK_OPTION) {
-			try {
-				// 사용자가 입력한 최소 가격과 최대 가격 가져오기
-				double minPrice = Double.parseDouble(minPriceField.getText());
-				double maxPrice = Double.parseDouble(maxPriceField.getText());
-
-				// ProductService를 통해 해당 범위의 상품 검색
-				List<ProductDTO> searchResults = productService.selectProductsByPriceRange(minPrice, maxPrice);
-
-				// 검색 결과를 테이블에 표시
-				displaySearchResults(searchResults);
-			} catch (NumberFormatException e) {
-				// 사용자가 유효하지 않은 숫자를 입력한 경우 에러 처리
-				JOptionPane.showMessageDialog(null, "유효하지 않은 숫자 형식입니다.", "오류", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
 }

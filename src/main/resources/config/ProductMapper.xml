@@ -46,13 +46,17 @@
         VALUES (#{product_no}, #{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
     </insert>
     -->
+
+    <!--  /////////////조건 검색///////////// -->
+    <!-- 전체품목 검색 -->
     <!-- 제품 조회 -->
+    <select id = "findByNo" resultType="ProductDTO" parameterType="String">
+        select * from product where product_no = #{product_no}
+    </select>
+
     <select id="findByAll" resultType="ProductDTO">
         select * from product
     </select>
-    <!--  /////////////조건 검색///////////// -->
-    <!-- 전체품목 검색 -->
-
 
     <select id="selectProductByAll" parameterType="java.lang.String" resultMap="ProductResult">
         SELECT *
@@ -82,4 +86,8 @@
         WHERE `product_price` BETWEEN #{minPrice} AND #{maxPrice}
     </select>
 
+    <update id="deductStockQuantities" parameterType="map">
+        update product set product_quantity = product_quantity - #{order_quantity}
+        where product_no = #{product_no}
+    </update>
 </mapper>
