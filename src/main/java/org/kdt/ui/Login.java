@@ -1,8 +1,6 @@
 package org.kdt.ui;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class Login extends JFrame {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	private MemberService memberService;
+	private final MemberService memberService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfId;
@@ -78,17 +76,17 @@ public class Login extends JFrame {
 		btnLogin.setBounds(33, 165, 91, 23);
 		contentPane.add(btnLogin);
 
-		btnLogin.addActionListener(login);
+		btnLogin.addActionListener(x -> loginBtnAction());
 
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.setBounds(136, 165, 91, 23);
 		contentPane.add(btnSignUp);
 
-		btnSignUp.addActionListener(insertMember);
+		btnSignUp.addActionListener(x -> insertMemberBtnAction());
 
 	}
 
-	private ActionListener login = x -> {
+	private void loginBtnAction(){
 
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMember_id(tfId.getText());
@@ -99,12 +97,15 @@ public class Login extends JFrame {
 			JOptionPane.showMessageDialog(null,"로그인이 성공하였습니다.");
 			memberDTO = memberService.findbyId(memberDTO.getMember_id());
 			log.info("memberDTO {}", memberDTO);
+			ProductMain productMain = new ProductMain(memberDTO);
+			productMain.setVisible(true);
+			setVisible(false);
 		}else{
 			JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 일치하지 않습니다.");
 			log.info("로그인 실패");
 		}
 	};
-	private ActionListener insertMember = x ->{
+	private void insertMemberBtnAction(){
 		InsertMember insertMember = new InsertMember();
 		this.setVisible(false);
 		insertMember.setVisible(true);

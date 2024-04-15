@@ -11,18 +11,6 @@
         (product_category, product_name, product_date, product_price, product_quantity)
         values (#{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
     </insert>
-
-    <!-- 제품 조회 -->
-    <select id="selectProduct" resultType="ProductDTO">
-        select * from product
-    </select>
-    <select id="findByAll" resultType="ProductDTO">
-        select * from product
-    </select>
-    <select id="findByProductName" resultType="ProductDTO" parameterType="String">
-        select * from product where product_name = #{product_name}
-    </select>
-
     <!-- 제품 삭제 -->
     <delete id="deleteProduct" parameterType="ProductDTO">
         delete from product
@@ -49,10 +37,7 @@
         <result property="product_price" column="product_price" />
         <result property="product_quantity" column="product_quantity" />
     </resultMap>
-    <!--  전체 조회 -->
-    <select id="findProductAll" resultMap="ProductResult">
-        SELECT * FROM product
-    </select>
+
 
     <!-- 데이터 추가 -->
     <!--
@@ -61,9 +46,14 @@
         VALUES (#{product_no}, #{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
     </insert>
     -->
-
+    <!-- 제품 조회 -->
+    <select id="findByAll" resultType="ProductDTO">
+        select * from product
+    </select>
     <!--  /////////////조건 검색///////////// -->
     <!-- 전체품목 검색 -->
+
+
     <select id="selectProductByAll" parameterType="java.lang.String" resultMap="ProductResult">
         SELECT *
         FROM product

@@ -54,5 +54,6 @@ public class ProductDAO {
 		params.put("maxPrice", maxPrice);
 		return session.selectList("selectProductsByPriceRange", params);
 	}
+	
 
 }

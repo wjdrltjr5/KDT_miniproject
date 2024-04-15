@@ -18,7 +18,7 @@ import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
 
 public class InsertMember extends JFrame {
-	private MemberService memberService;
+	private final MemberService memberService;
 	private JPanel contentPane;
 	private JTextField textField_id;
 	private JTextField textField_pw;
@@ -113,9 +113,9 @@ public class InsertMember extends JFrame {
 		btnInsertMember.setBounds(183, 394, 91, 23);
 		contentPane.add(btnInsertMember);
 		
-		btnInsertMember.addActionListener(signUp);
+		btnInsertMember.addActionListener(x -> signUpBtnAction());
 	}
-	private ActionListener signUp = x -> {
+	private void signUpBtnAction(){
 		String name = textField_name.getText();
 		String id = textField_id.getText();
 		String pw = textField_pw.getText();

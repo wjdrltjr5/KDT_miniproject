@@ -33,14 +33,12 @@ public class StockDelete extends JFrame {
      * Launch the application.
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    StockDelete frame = new StockDelete();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                StockDelete frame = new StockDelete();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -96,30 +94,30 @@ public class StockDelete extends JFrame {
         btnDeleteProduct.setBounds(65, 211, 200, 40);
         contentPane.add(btnDeleteProduct);
 
-        btnDeleteProduct.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    // 입력된 제품 정보 가져오기
-                    int productNo = Integer.parseInt(textFieldProductNo.getText());
-                    String productName = textFieldProductCategory.getText(); // 카테고리에 이름 입력
-                    String productCategory = textFieldProductName.getText(); // 이름에 카테고리 입력
+        btnDeleteProduct.addActionListener(e -> deleteProductBtnAction());
+    }
 
-                    // 제품 객체 생성
-                    ProductDTO productToDelete = new ProductDTO(productNo, productName, productCategory, null,
-                            productNo, productNo);
+    private void deleteProductBtnAction(){
+        try {
+            // 입력된 제품 정보 가져오기
+            int productNo = Integer.parseInt(textFieldProductNo.getText());
+            String productName = textFieldProductCategory.getText(); // 카테고리에 이름 입력
+            String productCategory = textFieldProductName.getText(); // 이름에 카테고리 입력
 
-                    // 제품 삭제
-                    int result = productService.deleteProduct(productToDelete);
-                    if (result > 0) {
-                        JOptionPane.showMessageDialog(null, "제품이 삭제되었습니다.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "해당 제품이 존재하지 않습니다.");
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");
-                }
+            // 제품 객체 생성
+            ProductDTO productToDelete = new ProductDTO();
+            productToDelete.setProduct_name(productName);
+            productToDelete.setProduct_category(productCategory);
+            productToDelete.setProduct_no(productNo);
+            // 제품 삭제
+            int result = productService.deleteProduct(productToDelete);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "제품이 삭제되었습니다.");
+            } else {
+                JOptionPane.showMessageDialog(null, "해당 제품이 존재하지 않습니다.");
             }
-        });
-
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");
+        }
     }
 }

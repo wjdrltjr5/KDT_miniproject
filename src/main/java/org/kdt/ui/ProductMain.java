@@ -1,8 +1,6 @@
-package org.kdt;
+package org.kdt.ui;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.Box;
@@ -18,11 +16,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import org.kdt.dao.ProductDAO;
+import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
-public class ProductMainTest extends JFrame {
+public class ProductMain extends JFrame {
 
 	private JButton btnSelectAll; // 전체 테이블 조회버튼
 	private JTable table; // 테이블
@@ -32,26 +31,27 @@ public class ProductMainTest extends JFrame {
 	private JTextField searchBar; // 검색bar
 	JButton searchButton; // 검색button
 	private JTextField textField; // 검색된 항목수 표시
-	JButton restartButton; // 초기화
-	
+	private JButton restartButton; // 초기화
+	private JButton btnStockRequest;
+
+	private JButton btnStockModify;
+	private JButton btnStockDelete;
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ProductMainTest frame = new ProductMainTest();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} // main end
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(() -> {
+//            try {
+//                ProductMain frame = new ProductMain();
+//                frame.setVisible(true);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//	} // main end
 
-	// ProductMainTest
-	public ProductMainTest() {
+	// ProductMain
+	public ProductMain(MemberDTO memberDTO) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
@@ -90,17 +90,19 @@ public class ProductMainTest extends JFrame {
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
 		
-		JButton btnStockRequest = new JButton("\uC785\uACE0\uC694\uCCAD");
+		btnStockRequest = new JButton("입고 요청");
 		btnStockRequest.setBounds(12, 80, 160, 95);
 		getContentPane().add(btnStockRequest);
 		
-		JButton btnStockModify = new JButton("\uC7AC\uACE0\uC218\uC815");
+		btnStockModify = new JButton("재고 수정");
 		btnStockModify.setBounds(12, 185, 160, 95);
 		getContentPane().add(btnStockModify);
 		
-		JButton btnStockDelete = new JButton("\uC7AC\uACE0\uC0AD\uC81C");
+		btnStockDelete = new JButton("재고 삭제");
 		btnStockDelete.setBounds(12, 290, 160, 95);
 		getContentPane().add(btnStockDelete);
+		btnStockModify.addActionListener(x -> stockModifyBtnAction());
+		btnStockDelete.addActionListener(x -> stockDeleteBtnAction());
 
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
@@ -110,59 +112,62 @@ public class ProductMainTest extends JFrame {
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
 
-		btnSelectAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadTableData();
+		btnSelectAll.addActionListener(e -> selectAllBtnAction());
 
-				// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
-				int totalRowCount = table.getRowCount();
-				textField.setText("전체 테이블의 항목 수: " + totalRowCount);
-			}
-		});
-
-		searchButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				String selectedCategory = comboBox.getSelectedItem().toString();
-				String searchKeyword = searchBar.getText();
-				List<ProductDTO> searchResults = null;
-				if (selectedCategory.equals("전체품목")) {
-					searchResults = productService.selectAllProducts(searchKeyword);
-				} else if (selectedCategory.equals("카테고리")) {
-					searchResults = productService.selectProductsByCategory(searchKeyword);
-				} else if (selectedCategory.equals("제품이름")) {
-					searchResults = productService.searchProductByName(searchKeyword);
-				} else if (selectedCategory.equals("가격")) {
-					// 가격 범위를 설정하는 다이얼로그 띄우기
-					showPriceRangeDialog();
-					return; // 다이얼로그가 닫히면서 추가 검색을 하지 않도록 리턴
-				}
-				displaySearchResults(searchResults);
-			}
-		});
+		searchButton.addActionListener(e -> searchBtnAction());
 		
-		restartButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        // 검색어 입력 필드 초기화
-		        searchBar.setText("");
-		        // 검색 조건 선택 상자 초기화
-		        comboBox.setSelectedIndex(0);
-		        
-		        // 테이블 데이터 초기화
-		        DefaultTableModel model = (DefaultTableModel) table.getModel();
-		        model.setRowCount(0); // 모든 행을 삭제하여 테이블을 비웁니다.
-		        model.setColumnCount(0); // 모든 열을 삭제하여 테이블을 비웁니다.
-
-		        // 하단 텍스트 필드 초기화
-		        textField.setText(message);
-		    }
-		});
+		restartButton.addActionListener(e -> restartBtnAction());
 
 
 
 
-	} // ProductMainTest END.
+	} // ProductMain END.
+	private void stockModifyBtnAction(){
+		StockModify stockModify = new StockModify();
+		stockModify.setVisible(true);
+	}
+	private void stockDeleteBtnAction(){
+		StockDelete stockDelete = new StockDelete();
+		stockDelete.setVisible(true);
+	}
+	private void selectAllBtnAction(){
+		loadTableData();
+		// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
+		int totalRowCount = table.getRowCount();
+		textField.setText("전체 테이블의 항목 수: " + totalRowCount);
+	}
 
+	private void restartBtnAction(){
+		// 검색어 입력 필드 초기화
+		searchBar.setText("");
+		// 검색 조건 선택 상자 초기화
+		comboBox.setSelectedIndex(0);
+
+		// 테이블 데이터 초기화
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0); // 모든 행을 삭제하여 테이블을 비웁니다.
+		model.setColumnCount(0); // 모든 열을 삭제하여 테이블을 비웁니다.
+
+		// 하단 텍스트 필드 초기화
+		textField.setText(message);
+	}
+	private void searchBtnAction(){
+		String selectedCategory = comboBox.getSelectedItem().toString();
+		String searchKeyword = searchBar.getText();
+		List<ProductDTO> searchResults = null;
+		if (selectedCategory.equals("전체품목")) {
+			searchResults = productService.selectAllProducts(searchKeyword);
+		} else if (selectedCategory.equals("카테고리")) {
+			searchResults = productService.selectProductsByCategory(searchKeyword);
+		} else if (selectedCategory.equals("제품이름")) {
+			searchResults = productService.searchProductByName(searchKeyword);
+		} else if (selectedCategory.equals("가격")) {
+			// 가격 범위를 설정하는 다이얼로그 띄우기
+			showPriceRangeDialog();
+			return; // 다이얼로그가 닫히면서 추가 검색을 하지 않도록 리턴
+		}
+		displaySearchResults(searchResults);
+	}
 	private void loadTableData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Product No");
