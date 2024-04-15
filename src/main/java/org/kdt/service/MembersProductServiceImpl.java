@@ -83,4 +83,28 @@ public class MembersProductServiceImpl implements MembersProductService{
             return membersProductDao.selectProductByAll(session,searchKeyword);
         }
     }
+    @Override
+    public List<MembersProductDTO> findByMemberNo(int memberNo) {
+        try(SqlSession session = Config.getConnection()){
+            return membersProductDao.findByMemberNo(session, memberNo);
+        }
+    }
+
+    @Override
+    public int requestStock(MembersProductDTO membersProductDTO) {
+        try(SqlSession session = Config.getConnection()){
+            int result = membersProductDao.requestStock(session, membersProductDTO);
+            session.commit();
+            return result;
+        }
+    }
+
+    @Override
+    public int deleteStock(MembersProductDTO membersProductDTO) {
+        try (SqlSession session = Config.getConnection()){
+            int result = membersProductDao.deleteStock(session, membersProductDTO);
+            session.commit();
+            return result;
+        }
+    }
 }
