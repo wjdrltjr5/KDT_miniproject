@@ -101,8 +101,8 @@ public class StockDelete extends JFrame {
         try {
             // 입력된 제품 정보 가져오기
             int productNo = Integer.parseInt(textFieldProductNo.getText());
-            String productName = textFieldProductCategory.getText(); // 카테고리에 이름 입력
-            String productCategory = textFieldProductName.getText(); // 이름에 카테고리 입력
+            String productName = textFieldProductName.getText();// 카테고리에 이름 입력
+            String productCategory =  textFieldProductCategory.getText();// 이름에 카테고리 입력
 
             // 제품 객체 생성
             ProductDTO productToDelete = new ProductDTO();
