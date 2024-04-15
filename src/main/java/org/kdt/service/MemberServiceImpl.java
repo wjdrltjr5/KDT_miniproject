@@ -9,22 +9,21 @@ import org.slf4j.LoggerFactory;
 
 public class MemberServiceImpl implements MemberService {
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	private MemberDAO memberDAO;
-	@Override
-	public void setMemberDAO(MemberDAO memberDAO) {
-		this.memberDAO = memberDAO;
-	}
-	
+	private final MemberDAO memberDAO;
+
+    public MemberServiceImpl(MemberDAO memberDAO) {
+        this.memberDAO = memberDAO;
+    }
+
 	@Override
 	public int insertMember(MemberDTO dto) {
 		int n = 0;
-		SqlSession session = null;
-		try {
-			session = Config.getConnection();
+        if(checkIdAndEmailDuplication(dto)){
+            return -1;
+        }
+		try(SqlSession session = Config.getConnection()) {
 			n = memberDAO.insertMember(session, dto);
 			session.commit();
-		} finally {
-			session.close();
 		}
 		return n;
 	}
@@ -47,11 +46,17 @@ public class MemberServiceImpl implements MemberService {
         }
 
     }
-    @Override
-    public boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check){
+
+    private boolean checkIdAndPassword(MemberDTO memberDTO, MemberDTO check){
         if(memberDTO.getMember_id().equals(check.getMember_id())
                 && memberDTO.getMember_passwd().equals(check.getMember_passwd())){
             return true;
         }else return false;
+    }
+
+    private boolean checkIdAndEmailDuplication(MemberDTO memberDTO){
+        try(SqlSession session = Config.getConnection()){
+        return !memberDAO.findByIdOrEmail(session, memberDTO).isEmpty();
+        }
     }
 }

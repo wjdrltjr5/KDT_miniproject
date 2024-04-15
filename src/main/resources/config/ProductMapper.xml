@@ -2,38 +2,84 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-        
+
 <mapper namespace="ProductMapper">
 
     <!-- 제품 추가 -->
     <insert id="insertProduct" parameterType="ProductDTO">
         insert into product
         (product_category, product_name, product_date, product_price, product_quantity)
-        values (#{productCategory}, #{productName}, #{productDate}, #{productPrice}, #{productQuantity})
+        values (#{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
     </insert>
-    
-    <!-- 제품 조회 -->
-    <select id="selectProduct" resultType="ProductDTO">
-        select * from product
-    </select>
-    
     <!-- 제품 삭제 -->
     <delete id="deleteProduct" parameterType="ProductDTO">
         delete from product
-        where product_no = #{productNo}
-        and product_category = #{productCategory}
-        and product_name = #{productName}
+        where product_no = #{product_no}
+        and product_category = #{product_category}
+        and product_name = #{product_name}
     </delete>
-    
+
     <!-- 제품 수정 -->
     <update id="updateProduct" parameterType="ProductDTO">
         update product
-        set product_category = #{productCategory},
-            product_name = #{productName},
-            product_date = #{productDate},
-            product_price = #{productPrice},
-            product_quantity = #{productQuantity}
-        where product_no = #{productNo}
+        set product_category = #{product_category},
+            product_name = #{product_name},
+            product_date = #{product_date},
+            product_price = #{product_price},
+            product_quantity = #{product_quantity}
+        where product_no = #{product_no}
     </update>
+    <resultMap id="ProductResult" type="org.kdt.dto.ProductDTO">
+        <id property="product_no" column="product_no" />
+        <result property="product_category" column="product_category" />
+        <result property="product_name" column="product_name" />
+        <result property="product_date" column="product_date" />
+        <result property="product_price" column="product_price" />
+        <result property="product_quantity" column="product_quantity" />
+    </resultMap>
+
+
+    <!-- 데이터 추가 -->
+    <!--
+    <insert id="saveProduct" parameterType="org.kdt.dto.ProductDTO">
+        INSERT INTO product ( `product_no`, `product_category`, `product_name`, `product_date`, `product_price`, `product_quantity` )
+        VALUES (#{product_no}, #{product_category}, #{product_name}, #{product_date}, #{product_price}, #{product_quantity})
+    </insert>
+    -->
+    <!-- 제품 조회 -->
+    <select id="findByAll" resultType="ProductDTO">
+        select * from product
+    </select>
+    <!--  /////////////조건 검색///////////// -->
+    <!-- 전체품목 검색 -->
+
+
+    <select id="selectProductByAll" parameterType="java.lang.String" resultMap="ProductResult">
+        SELECT *
+        FROM product
+        WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+        OR product_category LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+
+    <!-- 제품이름 검색 -->
+    <select id="searchProductByName" parameterType="java.lang.String" resultMap="ProductResult">
+        SELECT *
+        FROM product
+        WHERE `product_name` = #{name}
+    </select>
+
+    <!-- 카테고리 검색 -->
+    <select id="selectProductsByCategory" parameterType="java.lang.String" resultMap="ProductResult">
+        SELECT *
+        FROM product
+        WHERE `product_category` = #{category}
+    </select>
+
+    <!-- 가격 검색 -->
+    <select id="selectProductsByPriceRange" parameterType="map" resultType="org.kdt.dto.ProductDTO">
+        SELECT * FROM product
+        WHERE `product_price` BETWEEN #{minPrice} AND #{maxPrice}
+    </select>
 
 </mapper>

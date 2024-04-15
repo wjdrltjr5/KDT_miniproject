@@ -4,11 +4,19 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <!-- JDBC.properties 등록-->
     <properties resource="config/jdbc.properties"/>
+
+    <!-- DTO 별칭 -->
     <typeAliases>
         <typeAlias type="org.kdt.dto.MemberDTO" alias="MemberDTO"/>
+        <typeAlias type="org.kdt.dto.ProductDTO" alias="ProductDTO"/>
+        <typeAlias type="org.kdt.dto.MembersProductDTO" alias="MembersProductDTO"/>
     </typeAliases>
     <!-- JDBC.properties 등록-->
+
+
+
 
     <environments default="development">
         <environment id="development">
@@ -23,5 +31,6 @@
     </environments>
     <mappers>
         <mapper resource="config/MemberMapper.xml"/>
+        <mapper resource="config/ProductMapper.xml"/>
     </mappers>
 </configuration>
