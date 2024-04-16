@@ -114,7 +114,7 @@ public class StockRequest extends JFrame {
 
 	} // ProductMain END.
 	private void failureBtnAction(){
-		FAILURE failure = new FAILURE();
+		Failure failure = new Failure();
 		failure.setVisible(true);
 	}
 

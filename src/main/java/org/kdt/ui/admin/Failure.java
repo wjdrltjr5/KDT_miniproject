@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class FAILURE extends JFrame {
+public class Failure extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class FAILURE extends JFrame {
 	private JPanel contentPane;
 	private JTextField orderNo;
 
-	public FAILURE() {
+	public Failure() {
 		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
