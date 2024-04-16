@@ -1,19 +1,4 @@
-package org.kdt.ui;
-
-import java.awt.EventQueue;
-import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+package org.kdt.ui.user;
 
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
@@ -21,7 +6,14 @@ import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 
-public class ProductMain extends JFrame {
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+public class UserStockRequset extends JFrame {
 
 	private JButton btnSelectAll; // 전체 테이블 조회버튼
 	private JTable table; // 테이블
@@ -33,15 +25,15 @@ public class ProductMain extends JFrame {
 	private JTextField textField; // 검색된 항목수 표시
 	private JButton restartButton; // 초기화
 	private JButton btnStockRequest;
+	private MemberDTO memberDTO;
 
-	private JButton btnStockModify;
-	private JButton btnStockDelete;
+
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
-	private JButton btnStockInsert;
 
 	// ProductMain
-	public ProductMain(MemberDTO memberDTO) {
+	public UserStockRequset(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
@@ -83,22 +75,8 @@ public class ProductMain extends JFrame {
 		btnStockRequest = new JButton("입고 요청");
 		btnStockRequest.setBounds(12, 80, 160, 95);
 		getContentPane().add(btnStockRequest);
-		
-		btnStockModify = new JButton("재고 수정");
-		btnStockModify.setBounds(12, 185, 160, 95);
-		getContentPane().add(btnStockModify);
-		
-		btnStockDelete = new JButton("재고 삭제");
-		btnStockDelete.setBounds(12, 290, 160, 95);
-		getContentPane().add(btnStockDelete);
-		
-		btnStockInsert = new JButton("재고 추가");
-		btnStockInsert.setBounds(12, 395, 160, 95);
-		getContentPane().add(btnStockInsert);
 
-		btnStockModify.addActionListener(x -> stockModifyBtnAction());
-		btnStockDelete.addActionListener(x -> stockDeleteBtnAction());
-		btnStockInsert.addActionListener(x -> stockInsertBtnAction());
+
 		comboBox.addItem("전체품목");
 		comboBox.addItem("제품이름");
 		comboBox.addItem("카테고리");
@@ -107,30 +85,34 @@ public class ProductMain extends JFrame {
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
 
+		btnStockRequest.addActionListener(x ->stockRequestBtnAction());
+
 		btnSelectAll.addActionListener(e -> selectAllBtnAction());
 
 		searchButton.addActionListener(e -> searchBtnAction());
 		
 		restartButton.addActionListener(e -> restartBtnAction());
 
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
 
 
 
 	} // ProductMain END.
 
-	private void stockInsertBtnAction() {
-		StockInsert stockInsert = new StockInsert();
-		stockInsert.setVisible(true);
+	private void stockRequestBtnAction(){
+		UserStockRequestForm userStockRequestForm = new UserStockRequestForm(memberDTO);
+		userStockRequestForm.setVisible(true);
 	}
 
-	private void stockModifyBtnAction(){
-		StockModify stockModify = new StockModify();
-		stockModify.setVisible(true);
-	}
-	private void stockDeleteBtnAction(){
-		StockDelete stockDelete = new StockDelete();
-		stockDelete.setVisible(true);
-	}
+
+
+
 	private void selectAllBtnAction(){
 		loadTableData();
 		// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
@@ -170,13 +152,7 @@ public class ProductMain extends JFrame {
 		displaySearchResults(searchResults);
 	}
 	private void loadTableData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Product No");
-		model.addColumn("Category");
-		model.addColumn("Name");
-		model.addColumn("Date");
-		model.addColumn("Price");
-		model.addColumn("Quantity");
+		DefaultTableModel model = getDefaultTableModel();
 		model.setRowCount(0);
 		List<ProductDTO> products = productService.findByAll();
 		for (ProductDTO product : products) {
@@ -187,7 +163,7 @@ public class ProductMain extends JFrame {
 		table.setModel(model);
 	} // 전체테이블조회 END.
 
-	private void displaySearchResults(List<ProductDTO> searchResults) {
+	private DefaultTableModel getDefaultTableModel() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Product No");
 		model.addColumn("Category");
@@ -195,6 +171,11 @@ public class ProductMain extends JFrame {
 		model.addColumn("Date");
 		model.addColumn("Price");
 		model.addColumn("Quantity");
+		return model;
+	}
+
+	private void displaySearchResults(List<ProductDTO> searchResults) {
+		DefaultTableModel model = getDefaultTableModel();
 
 		int numOfResults = 0; // 검색된 항목의 수를 저장하기 위한 변수
 

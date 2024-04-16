@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MembersProductMapper">
+    <select id="findByStatusHold" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where mp.status = '대기'
+    </select>
+    <select id="findByOrderNo" resultType="MembersProductDTO" parameterType="String">
+        select * from member_product where member_product_no = #{orderNo}
+    </select>
+
+    <update id="requestOrderPermit" parameterType="String">
+        update member_product set status = '허가' where member_product_no = #{orderNo}
+    </update>
+    <update id="requestOrderFailure" parameterType="String">
+        update member_product set status = '거절' where member_product_no = #{orderNo}
+    </update>
+    <select id="selectProductsByCategory" parameterType="String" resultType="MembersProductDTO">
+            select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+            from member_product mp inner join member m using (member_no)
+            inner join product p using (product_no)
+            where mp.status = '대기' and product_category = #{category}
+    </select>
+
+    <select id="searchProductByName" parameterType="String" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where mp.status = '대기' and product_name = #{name}
+    </select>
+
+    <select id="selectProductByAll" parameterType="String" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        WHERE
+        mp.status = '대기' and
+        product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+        OR product_category LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+    <!-- 회원별 조회-->
+    <select id="findByMemberNo" resultType="MembersProductDTO" parameterType="Integer">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no}
+    </select>
+
+    <insert id="requestStock" parameterType="MembersProductDTO">
+        insert into member_product(member_no,product_no,product_quantity,status)
+        values(#{member_no},#{product_no},#{product_quantity},#{status})
+    </insert>
+
+    <delete id="stockDelete" parameterType="MembersProductDTO">
+        delete from member_product where member_no = #{member_no} and product_no = #{product_no}
+        and status = '허가'
+    </delete>
+
+    <select id="findByMemberNoAndProductsCategory" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no} and product_category = #{category}
+    </select>
+    <select id="findByMemberNoAndProductsCategoryOrProductName" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no}
+        and
+        (product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+        OR product_category LIKE CONCAT('%', #{searchKeyword}, '%'))
+    </select>
+    <select id="findByMemberNoAndProductsName" parameterType="map" resultType="MembersProductDTO">
+        select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status
+        , product_price
+        from member_product mp inner join member m using (member_no)
+        inner join product p using (product_no)
+        where
+        mp.status = '허가' and member_no = #{member_no} and product_name = #{name}
+    </select>
+
+    <update id="updateStock" parameterType="MembersProductDTO">
+        update member_product set product_quantity = #{product_quantity} where member_no = #{member_no}
+        and product_no = #{product_no}
+    </update>
+
+    <select id="findByPermitAndProductNoAndMemberNo" parameterType="MembersProductDTO" resultType="MembersProductDTO">
+        select * from member_product where status = '허가'
+        and product_no = #{product_no} and member_no = #{member_no}
+    </select>
+    <delete id="deleteByOrderNo" parameterType="String">
+        delete from member_product where member_product_no = #{orderNo}
+    </delete>
+</mapper>

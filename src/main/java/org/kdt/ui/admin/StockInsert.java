@@ -1,6 +1,7 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
-import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,6 +89,14 @@ public class StockInsert extends JFrame {
         contentPane.add(btnInsertProduct);
 
         btnInsertProduct.addActionListener(e -> insertProductBtnAction());
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); 
+            }
+        });
     }
 
     private void insertProductBtnAction() {
