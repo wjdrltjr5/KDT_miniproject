@@ -59,4 +59,12 @@ public class MemberServiceImpl implements MemberService {
         return !memberDAO.findByIdOrEmail(session, memberDTO).isEmpty();
         }
     }
+
+    @Override
+    public int chargeMoney(MemberDTO memberDTO, int money) {
+        try(SqlSession session = Config.getConnection()){
+            memberDTO.setMember_balance(memberDTO.getMember_balance() + money);
+            return memberDAO.updateBalance(session,memberDTO);
+        }
+    }
 }

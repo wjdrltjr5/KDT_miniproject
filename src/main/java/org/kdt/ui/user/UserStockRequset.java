@@ -38,6 +38,7 @@ public class UserStockRequset extends JFrame {
 	private JButton btnStockRequest;
 	private MemberDTO memberDTO;
 
+	private JLabel balance;
 
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
 			+ "               ※가격으로 검색시 클릭후 바로 검색을 눌러서 범위를 설정하시오.※";
@@ -97,19 +98,19 @@ public class UserStockRequset extends JFrame {
 		btnStockRequest.setForeground(Color.white);
 		getContentPane().add(btnStockRequest);
 		
-		JLabel lblNewLabel = new JLabel("\uC794\uC561");
+		JLabel lblNewLabel = new JLabel("잔액");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(70, 266, 50, 15);
 		getContentPane().add(lblNewLabel);
+
+		balance = new JLabel(String.valueOf(memberDTO.getMember_balance()));
+		balance.setHorizontalAlignment(SwingConstants.CENTER);
+		balance.setBounds(12, 291, 160, 15);
+		getContentPane().add(balance);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(12, 291, 160, 15);
-		getContentPane().add(lblNewLabel_1);
-		
-		JButton btnNewButton = new JButton("\uCDA9\uC804\uD558\uAE30");
-		btnNewButton.setBounds(50, 330, 91, 23);
-		getContentPane().add(btnNewButton);
+		JButton btnChargeMoney = new JButton("충전하기");
+		btnChargeMoney.setBounds(50, 330, 91, 23);
+		getContentPane().add(btnChargeMoney);
 
 
 		comboBox.addItem("전체품목");
@@ -119,6 +120,8 @@ public class UserStockRequset extends JFrame {
 
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
+
+		btnChargeMoney.addActionListener(x -> chargeMoneyBtnAction());
 
 		btnStockRequest.addActionListener(x ->stockRequestBtnAction());
 
@@ -139,7 +142,10 @@ public class UserStockRequset extends JFrame {
 
 
 	} // ProductMain END.
-
+	private void chargeMoneyBtnAction(){
+		ChargeMoneyForm chargeMoneyForm = new ChargeMoneyForm(memberDTO);
+		chargeMoneyForm.setVisible(true);
+	}
 	private void stockRequestBtnAction(){
 		UserStockRequestForm userStockRequestForm = new UserStockRequestForm(memberDTO);
 		userStockRequestForm.setVisible(true);

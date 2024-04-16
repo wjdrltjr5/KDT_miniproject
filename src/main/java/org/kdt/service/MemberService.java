@@ -7,4 +7,5 @@ public interface MemberService {
 	MemberDTO findbyId(String memberId);
 	boolean login(MemberDTO memberDTO);
 
+    int chargeMoney(MemberDTO memberDTO, int money);
 }

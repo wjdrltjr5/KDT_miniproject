@@ -1,13 +1,15 @@
 package org.kdt.ui.user;
 
-import java.awt.EventQueue;
+import org.kdt.dao.MemberDAO;
+import org.kdt.dto.MemberDTO;
+import org.kdt.service.MemberService;
+import org.kdt.service.MemberServiceImpl;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 public class ChargeMoneyForm extends JFrame {
 
@@ -15,26 +17,20 @@ public class ChargeMoneyForm extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 
+	private MemberDTO memberDTO;
+
+	private final MemberService memberService;
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChargeMoneyForm frame = new ChargeMoneyForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ChargeMoneyForm() {
+	public ChargeMoneyForm(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+		memberService = new MemberServiceImpl(new MemberDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 200);
 		contentPane = new JPanel();
@@ -43,7 +39,7 @@ public class ChargeMoneyForm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("충전할 금액");
 		lblNewLabel.setBounds(12, 31, 77, 50);
 		contentPane.add(lblNewLabel);
 		
@@ -52,8 +48,29 @@ public class ChargeMoneyForm extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(68, 105, 200, 40);
-		contentPane.add(btnNewButton);
+		JButton btnChargeMoney = new JButton("충전하기");
+		btnChargeMoney.setBounds(68, 105, 200, 40);
+		contentPane.add(btnChargeMoney);
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
+		});
+
+		btnChargeMoney.addActionListener(e -> chargeMoneyBtnAction());
+	}
+
+	private void chargeMoneyBtnAction(){
+		int i = memberService.chargeMoney(memberDTO, Integer.parseInt(textField.getText()));
+		if(i > 0){
+			JOptionPane.showMessageDialog(null, "충전에 성공하였습니다.");
+			setVisible(false);
+		}else{
+			JOptionPane.showMessageDialog(null, "충전에 실패하였습니다.");
+			setVisible(false);
+		}
 	}
 }
