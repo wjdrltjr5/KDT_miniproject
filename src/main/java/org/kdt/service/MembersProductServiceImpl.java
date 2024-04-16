@@ -7,12 +7,16 @@ import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class MembersProductServiceImpl implements MembersProductService{
     private final MembersProductDAO membersProductDao;
     private final ProductDAO productDao;
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     public MembersProductServiceImpl(MembersProductDAO membersProductDao, ProductDAO productDao) {
         this.membersProductDao = membersProductDao;
         this.productDao = productDao;
@@ -64,6 +68,7 @@ public class MembersProductServiceImpl implements MembersProductService{
 
     private boolean checkQuantity(SqlSession session,String orderNo){
             MembersProductDTO request = membersProductDao.findByOrderNo(session, orderNo);
+            if(request == null) return  false;
             ProductDTO productDto = productDao.findByNo(session,request.getProduct_no());
             if(request.getProduct_quantity() > productDto.getProduct_quantity()){
                 return false;

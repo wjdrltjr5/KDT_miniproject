@@ -20,7 +20,7 @@
         update member_product set status = '허가' where member_product_no = #{orderNo} and status = '대기'
     </update>
     <update id="requestOrderFailure" parameterType="String">
-        update member_product set status = '거절' where member_product_no = #{orderNo}
+        update member_product set status = '거절' where member_product_no = #{orderNo} and status = '대기'
     </update>
     <select id="selectProductsByCategory" parameterType="String" resultType="MembersProductDTO">
             select member_product_no, member_no, member_name,product_no,product_name,p.product_category, mp.product_quantity, status

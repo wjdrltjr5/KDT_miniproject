@@ -72,7 +72,7 @@ public class Failure extends JFrame {
 
 	private void btnFailureBtnAction(){
 		int i = membersProductService.requestOrderFailure(orderNo.getText());
-		if(i < 0){
+		if(i <= 0){
 			JOptionPane.showMessageDialog(null, "해당 주문이 존재하지 않습니다.");
 			setVisible(false);
 		}else {
