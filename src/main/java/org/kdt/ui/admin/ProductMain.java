@@ -19,7 +19,8 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-import org.kdt.ui.StockModify;
+import org.kdt.ui.Login;
+
 
 public class ProductMain extends JFrame {
 
@@ -33,7 +34,7 @@ public class ProductMain extends JFrame {
 	private JTextField textField; // 검색된 항목수 표시
 	private JButton restartButton; // 초기화
 	private JButton btnStockRequest;
-
+	private JButton logOutButton;
 	private JButton btnStockModify;
 	private JButton btnStockDelete;
 	private String message = "전체 테이블의 항목 수: 검색된항목의수가 없습니다.              "
@@ -95,6 +96,10 @@ public class ProductMain extends JFrame {
 		btnStockInsert = new JButton("재고 추가");
 		btnStockInsert.setBounds(12, 395, 160, 95);
 		getContentPane().add(btnStockInsert);
+		
+		logOutButton = new JButton("로그아웃");
+		logOutButton.setBounds(926, 553, 111, 23);
+		getContentPane().add(logOutButton);
 
 		btnStockModify.addActionListener(x -> stockModifyBtnAction());
 		btnStockDelete.addActionListener(x -> stockDeleteBtnAction());
@@ -114,11 +119,19 @@ public class ProductMain extends JFrame {
 		searchButton.addActionListener(e -> searchBtnAction());
 		
 		restartButton.addActionListener(e -> restartBtnAction());
+		
+		logOutButton.addActionListener(e -> logOutBtnAction());
 
 
 
 
 	} // ProductMain END.
+	
+	private void logOutBtnAction() {
+	    Login loginPage = new Login();
+	    loginPage.setVisible(true);
+	    dispose(); // 현재 창 닫기
+	}
 
 	private void stockRequestBtnAction(){
 		StockRequest stockRequest = new StockRequest();

@@ -1,4 +1,4 @@
-package org.kdt.ui;
+package org.kdt.ui.admin;
 
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
@@ -43,7 +43,7 @@ public class StockModify extends JFrame {
         productService = new ProductServiceImpl(new ProductDAO());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 350, 400);
+        setBounds(100, 100, 360, 230);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -56,13 +56,14 @@ public class StockModify extends JFrame {
 
         textFieldProductName = new JTextField();
         textFieldProductName.setBounds(126, 20, 200, 50);
+        textFieldProductName.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(textFieldProductName);
         textFieldProductName.setColumns(10);
 
         JButton btnSearchProduct = new JButton("검색하기");
         btnSearchProduct.addActionListener(e -> searchProductBtnAction());
-
         btnSearchProduct.setBounds(126, 80, 200, 50);
+    
         contentPane.add(btnSearchProduct);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
