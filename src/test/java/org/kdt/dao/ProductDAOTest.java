@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.kdt.Config;
 import org.kdt.dto.ProductDTO;
-import org.kdt.service.DuplicatedProductnoException;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 

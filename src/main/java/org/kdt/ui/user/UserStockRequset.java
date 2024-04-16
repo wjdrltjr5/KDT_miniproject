@@ -22,6 +22,7 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
+import javax.swing.SwingConstants;
 
 public class UserStockRequset extends JFrame {
 
@@ -95,6 +96,20 @@ public class UserStockRequset extends JFrame {
 		btnStockRequest.setBackground(Color.decode("#778899"));
 		btnStockRequest.setForeground(Color.white);
 		getContentPane().add(btnStockRequest);
+		
+		JLabel lblNewLabel = new JLabel("\uC794\uC561");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(70, 266, 50, 15);
+		getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(12, 291, 160, 15);
+		getContentPane().add(lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("\uCDA9\uC804\uD558\uAE30");
+		btnNewButton.setBounds(50, 330, 91, 23);
+		getContentPane().add(btnNewButton);
 
 
 		comboBox.addItem("전체품목");
