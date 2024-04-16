@@ -1,7 +1,6 @@
 package org.kdt.ui;
 
-import java.awt.EventQueue;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,70 +34,74 @@ public class InsertMember extends JFrame {
 		memberService = new MemberServiceImpl(new MemberDAO());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 506, 529);
+		setBounds(100, 100, 300, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.decode("#DCDCDC"));
+		setTitle("회원가입");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblID = new JLabel("ID");
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
-		lblID.setBounds(83, 187, 102, 25);
+		lblID.setBounds(12, 106, 72, 30);
 		contentPane.add(lblID);
 		
 		JLabel lblNewLabel_1 = new JLabel("회원가입");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(137, 86, 204, 25);
+		lblNewLabel_1.setBounds(0, 10, 286, 25);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblPw = new JLabel("PW");
 		lblPw.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPw.setBounds(83, 232, 102, 25);
+		lblPw.setBounds(12, 158, 72, 30);
 		contentPane.add(lblPw);
 		
 		JLabel lblChPw = new JLabel("Ch-PW");
 		lblChPw.setHorizontalAlignment(SwingConstants.CENTER);
-		 lblChPw.setBounds(83, 278, 102, 25);
+		 lblChPw.setBounds(12, 211, 72, 30);
 		contentPane.add( lblChPw);
 		
 		JLabel lblName = new JLabel("Name");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setBounds(83, 138, 102, 25);
+		lblName.setBounds(12, 54, 72, 30);
 		contentPane.add(lblName);
 		
 		JLabel lblEM = new JLabel("E/M");
 		lblEM.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEM.setBounds(83, 325, 102, 25);
+		lblEM.setBounds(12, 258, 72, 30);
 		contentPane.add(lblEM);
 		
 		textField_name = new JTextField();
-		textField_name.setBounds(186, 139, 155, 23);
+		textField_name.setBounds(96, 54, 178, 25);
 		contentPane.add(textField_name);
 		textField_name.setColumns(10);
 		
 		textField_id = new JTextField();
 		textField_id.setColumns(10);
-		textField_id.setBounds(186, 188, 155, 23);
+		textField_id.setBounds(96, 107, 178, 25);
 		contentPane.add(textField_id);
 		
 		textField_pw = new JTextField();
 		textField_pw.setColumns(10);
-		textField_pw.setBounds(186, 233, 155, 23);
+		textField_pw.setBounds(96, 159, 178, 25);
 		contentPane.add(textField_pw);
 		
 		textField_chpw = new JTextField();
 		textField_chpw.setColumns(10);
-		textField_chpw.setBounds(186, 279, 155, 23);
+		textField_chpw.setBounds(96, 212, 178, 25);
 		contentPane.add(textField_chpw);
 		
 		textField_em = new JTextField();
 		textField_em.setColumns(10);
-		textField_em.setBounds(186, 327, 155, 23);
+		textField_em.setBounds(96, 261, 178, 25);
 		contentPane.add(textField_em);
 		
 		JButton btnInsertMember = new JButton("회원가입");
-		btnInsertMember.setBounds(183, 394, 91, 23);
+		btnInsertMember.setBounds(83, 333, 108, 38);
+		btnInsertMember.setBackground(Color.black);
+		btnInsertMember.setForeground(Color.white);
 		contentPane.add(btnInsertMember);
 		
 		btnInsertMember.addActionListener(x -> signUpBtnAction());

@@ -1,25 +1,22 @@
 package org.kdt.ui.admin;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
 
 public class StockDelete extends JFrame {
 
@@ -45,6 +42,8 @@ public class StockDelete extends JFrame {
         setBounds(100, 100, 350, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBackground(Color.decode("#DCDCDC"));
+        setTitle("재고삭제");
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -84,6 +83,8 @@ public class StockDelete extends JFrame {
 
         JButton btnDeleteProduct = new JButton("삭제하기");
         btnDeleteProduct.setBounds(65, 211, 200, 40);
+        btnDeleteProduct.setBackground(Color.decode("#DC143C"));
+        btnDeleteProduct.setForeground(Color.white);
         contentPane.add(btnDeleteProduct);
 
         btnDeleteProduct.addActionListener(e -> deleteProductBtnAction());
