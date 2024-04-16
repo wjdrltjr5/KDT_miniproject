@@ -23,6 +23,7 @@ import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
+import org.kdt.ui.Login;
 
 public class UserMain extends JFrame {
 
@@ -37,6 +38,7 @@ public class UserMain extends JFrame {
 	private JTextField textField; // 검색된 항목수 표시
 	private JButton restartButton; // 초기화
 	private JButton btnStockRequest;
+	private JButton logOutButton;
 
 	private JButton btnStockModify;
 	private JButton btnStockDelete;
@@ -86,6 +88,10 @@ public class UserMain extends JFrame {
 		restartButton.setBounds(926, 185, 111, 23);
 		getContentPane().add(restartButton);
 		
+		logOutButton = new JButton("로그아웃");
+	    logOutButton.setBounds(926, 553, 111, 23);
+	    getContentPane().add(logOutButton);
+		
 		btnStockRequest = new JButton("입고 요청 하기");
 		btnStockRequest.setBounds(12, 80, 160, 95);
 		getContentPane().add(btnStockRequest);
@@ -112,11 +118,21 @@ public class UserMain extends JFrame {
 		searchButton.addActionListener(e -> searchBtnAction());
 		
 		restartButton.addActionListener(e -> restartBtnAction());
+		
+		logOutButton.addActionListener(e -> logOutBtnAction());
+		
+		
 
 
 
 
 	} // ProductMain END.
+
+	private void logOutBtnAction() {
+		Login loginPage = new Login();
+	    loginPage.setVisible(true);
+	    dispose();
+	}
 
 	private void stockUpdateBtnAction() {
 		UserStockUpdate userStockUpdate = new UserStockUpdate(memberDTO);
