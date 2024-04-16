@@ -19,7 +19,7 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-import org.kdt.ui.StockModify;
+import org.kdt.ui.admin.StockModify;
 
 public class ProductMain extends JFrame {
 
