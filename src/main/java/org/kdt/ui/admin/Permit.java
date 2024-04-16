@@ -1,16 +1,22 @@
 package org.kdt.ui.admin;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
-
-import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class Permit extends JFrame {
 
@@ -21,9 +27,10 @@ public class Permit extends JFrame {
 	private JTextField orderNo;
 
 	public Permit() {
+		setTitle("허가하기");
 		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -32,16 +39,18 @@ public class Permit extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("주문번호");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 20, 100, 50);
+		lblNewLabel.setBounds(12, 33, 100, 50);
 		contentPane.add(lblNewLabel);
 
 		orderNo = new JTextField();
-		orderNo.setBounds(126, 20, 200, 50);
+		orderNo.setBounds(126, 34, 200, 50);
 		contentPane.add(orderNo);
 		orderNo.setColumns(10);
 		
 		JButton btnPermit = new JButton("허가하기");
-		btnPermit.setBounds(126, 106, 200, 40);
+		btnPermit.setBounds(79, 113, 200, 40);
+		btnPermit.setBackground(Color.decode("#778899"));
+		btnPermit.setForeground(Color.white);
 		contentPane.add(btnPermit);
 
 		btnPermit.addActionListener(e -> permitBtnAction());

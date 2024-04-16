@@ -1,17 +1,27 @@
 package org.kdt.ui.user;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.List;
 
 public class UserStockRequset extends JFrame {
 
@@ -37,10 +47,14 @@ public class UserStockRequset extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.decode("#DCDCDC"));
 
 		btnSelectAll = new JButton("전체테이블");
 		btnSelectAll.setBounds(926, 90, 111, 85);
+		btnSelectAll.setBackground(Color.decode("#483D8B"));
+		btnSelectAll.setForeground(Color.white);
 		getContentPane().add(btnSelectAll);
+		setTitle("입고조회");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(181, 72, 733, 471);
@@ -60,6 +74,8 @@ public class UserStockRequset extends JFrame {
 
 		searchButton = new JButton("검색");
 		searchButton.setBounds(807, 27, 107, 23);
+		searchButton.setBackground(Color.black);
+		searchButton.setForeground(Color.white);
 		getContentPane().add(searchButton);
 
 		textField = new JTextField();
@@ -70,10 +86,14 @@ public class UserStockRequset extends JFrame {
 		
 		restartButton = new JButton("초기화");
 		restartButton.setBounds(926, 185, 111, 23);
+		restartButton.setBackground(Color.black);
+		restartButton.setForeground(Color.white);
 		getContentPane().add(restartButton);
 		
 		btnStockRequest = new JButton("입고 요청");
 		btnStockRequest.setBounds(12, 80, 160, 95);
+		btnStockRequest.setBackground(Color.decode("#778899"));
+		btnStockRequest.setForeground(Color.white);
 		getContentPane().add(btnStockRequest);
 
 

@@ -1,5 +1,6 @@
 package org.kdt.ui.admin;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -36,6 +37,8 @@ public class StockInsert extends JFrame {
         setBounds(100, 100, 350, 400);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBackground(Color.decode("#DCDCDC"));
+        setTitle("재고추가");
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -86,6 +89,8 @@ public class StockInsert extends JFrame {
 
         JButton btnInsertProduct = new JButton("추가하기");
         btnInsertProduct.setBounds(65, 281, 200, 40);
+        btnInsertProduct.setBackground(Color.decode("#4B0082"));
+        btnInsertProduct.setForeground(Color.white);
         contentPane.add(btnInsertProduct);
 
         btnInsertProduct.addActionListener(e -> insertProductBtnAction());

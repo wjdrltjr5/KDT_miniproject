@@ -13,9 +13,11 @@
     <select id="findByOrderNo" resultType="MembersProductDTO" parameterType="String">
         select * from member_product where member_product_no = #{orderNo}
     </select>
-
+    <select id="findByOrderNoAndStatusHold" resultType="MembersProductDTO" parameterType="String">
+        select * from member_product where member_product_no = #{orderNo} and status = '대기'
+    </select>
     <update id="requestOrderPermit" parameterType="String">
-        update member_product set status = '허가' where member_product_no = #{orderNo}
+        update member_product set status = '허가' where member_product_no = #{orderNo} and status = '대기'
     </update>
     <update id="requestOrderFailure" parameterType="String">
         update member_product set status = '거절' where member_product_no = #{orderNo}

@@ -20,7 +20,9 @@ public class MembersProductDAO {
     public MembersProductDTO findByOrderNo(SqlSession session, String orderNo){
         return session.selectOne("MembersProductMapper.findByOrderNo",orderNo);
     }
-
+    public MembersProductDTO findByOrderNoAndStatusHold(SqlSession session, String orderNo){
+        return session.selectOne("MembersProductMapper.findByOrderNoAndStatusHold",orderNo);
+    }
     public List<MembersProductDTO> selectProductsByCategory(SqlSession session, String category) {
         return session.selectList("MembersProductMapper.selectProductsByCategory", category);
     }

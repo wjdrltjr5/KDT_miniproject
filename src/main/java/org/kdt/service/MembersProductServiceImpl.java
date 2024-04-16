@@ -39,7 +39,7 @@ public class MembersProductServiceImpl implements MembersProductService{
             if(checkQuantity(session,orderNo)){
                 int result;
                 if(checkPermitProduct(orderNo)){
-                    MembersProductDTO byOrderNo = membersProductDao.findByOrderNo(session,orderNo);
+                    MembersProductDTO byOrderNo = membersProductDao.findByOrderNoAndStatusHold(session,orderNo);
                     MembersProductDTO dto = membersProductDao.findByPermitAndProductNoAndMemberNo(session, byOrderNo);
                     dto.setProduct_quantity(dto.getProduct_quantity() + byOrderNo.getProduct_quantity());
                     result = membersProductDao.updateStock(session, dto);

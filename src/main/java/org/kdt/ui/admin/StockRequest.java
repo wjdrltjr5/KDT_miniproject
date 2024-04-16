@@ -1,5 +1,6 @@
 package org.kdt.ui.admin;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MembersProductDTO;
@@ -42,10 +44,14 @@ public class StockRequest extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.decode("#DCDCDC"));
 
 		btnSelectAll = new JButton("전체테이블");
 		btnSelectAll.setBounds(926, 90, 111, 85);
+		btnSelectAll.setBackground(Color.decode("#483D8B"));
+		btnSelectAll.setForeground(Color.white);
 		getContentPane().add(btnSelectAll);
+		setTitle("입고요청처리");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(181, 72, 733, 471);
@@ -65,6 +71,8 @@ public class StockRequest extends JFrame {
 
 		searchButton = new JButton("검색");
 		searchButton.setBounds(807, 27, 107, 23);
+		searchButton.setBackground(Color.black);
+		searchButton.setForeground(Color.white);
 		getContentPane().add(searchButton);
 
 		textField = new JTextField();
@@ -75,14 +83,20 @@ public class StockRequest extends JFrame {
 		
 		restartButton = new JButton("초기화");
 		restartButton.setBounds(926, 470, 111, 23);
+		restartButton.setBackground(Color.black);
+		restartButton.setForeground(Color.white);
 		getContentPane().add(restartButton);
 		
 		btnPermit = new JButton("요청 허가");
 		btnPermit.setBounds(926, 185, 111, 85);
+		btnPermit.setBackground(Color.decode("#778899"));
+		btnPermit.setForeground(Color.white);
 		getContentPane().add(btnPermit);
 
 		btnFailure = new JButton("반려하기");
 		btnFailure.setBounds(926, 280, 111, 85);
+		btnFailure.setBackground(Color.decode("#DC143C"));
+		btnFailure.setForeground(Color.white);
 		getContentPane().add(btnFailure);
 		
 	
@@ -114,7 +128,7 @@ public class StockRequest extends JFrame {
 
 	} // ProductMain END.
 	private void failureBtnAction(){
-		FAILURE failure = new FAILURE();
+		Failure failure = new Failure();
 		failure.setVisible(true);
 	}
 

@@ -1,30 +1,23 @@
 package org.kdt.ui.admin;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
-
-import java.util.List;
 
 public class StockModify extends JFrame {
 
@@ -40,6 +33,7 @@ public class StockModify extends JFrame {
      * Create the frame.
      */
     public StockModify() {
+    	setTitle("재고조회");
         productService = new ProductServiceImpl(new ProductDAO());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,19 +44,21 @@ public class StockModify extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblProductName = new JLabel("제품이름");
-        lblProductName.setBounds(12, 20, 100, 50);
+        lblProductName.setBounds(12, 30, 80, 50);
         lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblProductName);
 
         textFieldProductName = new JTextField();
-        textFieldProductName.setBounds(126, 20, 200, 50);
+        textFieldProductName.setBounds(112, 31, 222, 50);
         textFieldProductName.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(textFieldProductName);
         textFieldProductName.setColumns(10);
 
         JButton btnSearchProduct = new JButton("검색하기");
         btnSearchProduct.addActionListener(e -> searchProductBtnAction());
-        btnSearchProduct.setBounds(126, 80, 200, 50);
+        btnSearchProduct.setBackground(Color.black);
+        btnSearchProduct.setForeground(Color.white);
+        btnSearchProduct.setBounds(83, 104, 200, 50);
     
         contentPane.add(btnSearchProduct);
 
@@ -111,6 +107,8 @@ class ModifyProductInfo extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        contentPane.setBackground(Color.decode("#DCDCDC"));
+        setTitle("재고수정");
 
         JLabel lblProductName = new JLabel("제품이름");
         lblProductName.setBounds(12, 20, 100, 50);
@@ -155,6 +153,8 @@ class ModifyProductInfo extends JFrame {
         JButton btnModifyProduct = new JButton("수정하기");
         btnModifyProduct.addActionListener(e -> modifyProductBtnAction());
         btnModifyProduct.setBounds(65, 281, 200, 40);
+        btnModifyProduct.setBackground(Color.decode("#008B8B"));
+        btnModifyProduct.setForeground(Color.white);
         contentPane.add(btnModifyProduct);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

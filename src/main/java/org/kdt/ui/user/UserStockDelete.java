@@ -1,17 +1,24 @@
 package org.kdt.ui.user;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class UserStockDelete extends JFrame {
 
@@ -33,26 +40,30 @@ public class UserStockDelete extends JFrame {
         membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
         this.memberDTO = memberDTO;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 350, 300);
+        setBounds(100, 100, 350, 200);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        contentPane.setBackground(Color.decode("#DCDCDC"));
+        setTitle("재고삭제");
 
         JLabel lblProductNo = new JLabel("제품번호");
         lblProductNo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProductNo.setBounds(12, 20, 100, 50);
+        lblProductNo.setBounds(12, 31, 77, 50);
         contentPane.add(lblProductNo);
 
         textFieldProductNo = new JTextField();
         textFieldProductNo.setHorizontalAlignment(SwingConstants.CENTER);
-        textFieldProductNo.setBounds(126, 20, 200, 50);
+        textFieldProductNo.setBounds(101, 32, 212, 50);
         contentPane.add(textFieldProductNo);
         textFieldProductNo.setColumns(10);
 
         JButton btnDeleteProduct = new JButton("삭제하기");
-        btnDeleteProduct.setBounds(65, 211, 200, 40);
+        btnDeleteProduct.setBounds(68, 105, 200, 40);
+        btnDeleteProduct.setBackground(Color.decode("#DC143C"));
+        btnDeleteProduct.setForeground(Color.white);
         contentPane.add(btnDeleteProduct);
 
         btnDeleteProduct.addActionListener(e -> deleteProductBtnAction());
