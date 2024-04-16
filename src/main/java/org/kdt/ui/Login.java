@@ -1,5 +1,6 @@
 package org.kdt.ui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -54,6 +55,8 @@ public class Login extends JFrame {
 		setBounds(100, 100, 300, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.decode("#DCDCDC"));
+		setTitle("로그인");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -63,27 +66,31 @@ public class Login extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("패스워드");
-		lblNewLabel_1.setBounds(33, 111, 57, 31);
+		lblNewLabel_1.setBounds(33, 98, 57, 31);
 		contentPane.add(lblNewLabel_1);
 		
 		tfId = new JTextField();
-		tfId.setBounds(102, 62, 96, 21);
+		tfId.setBounds(102, 60, 125, 26);
 		contentPane.add(tfId);
 		tfId.setColumns(10);
 		
 		tfPwd = new JTextField();
-		tfPwd.setBounds(102, 116, 96, 21);
+		tfPwd.setBounds(102, 98, 125, 26);
 		contentPane.add(tfPwd);
 		tfPwd.setColumns(10);
 		
 		btnLogin = new JButton("로그인");
 		btnLogin.setBounds(33, 165, 91, 23);
+		btnLogin.setBackground(Color.black);
+		btnLogin.setForeground(Color.white);
 		contentPane.add(btnLogin);
 
 		btnLogin.addActionListener(x -> loginBtnAction());
 
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.setBounds(136, 165, 91, 23);
+		btnSignUp.setBackground(Color.black);
+		btnSignUp.setForeground(Color.white);
 		contentPane.add(btnSignUp);
 
 		btnSignUp.addActionListener(x -> insertMemberBtnAction());

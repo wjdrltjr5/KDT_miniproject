@@ -1,5 +1,6 @@
 package org.kdt.ui.admin;
 
+import java.awt.Color;
 import java.util.List;
 
 import javax.swing.Box;
@@ -45,9 +46,13 @@ public class ProductMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.decode("#DCDCDC"));
+		setTitle("재고관리시스템(관리자)");
 
 		btnSelectAll = new JButton("전체테이블");
 		btnSelectAll.setBounds(926, 90, 111, 85);
+		btnSelectAll.setBackground(Color.decode("#483D8B"));
+		btnSelectAll.setForeground(Color.white);
 		getContentPane().add(btnSelectAll);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -68,6 +73,8 @@ public class ProductMain extends JFrame {
 
 		searchButton = new JButton("검색");
 		searchButton.setBounds(807, 27, 107, 23);
+		searchButton.setBackground(Color.black);
+		searchButton.setForeground(Color.white);
 		getContentPane().add(searchButton);
 
 		textField = new JTextField();
@@ -78,26 +85,38 @@ public class ProductMain extends JFrame {
 		
 		restartButton = new JButton("초기화");
 		restartButton.setBounds(926, 185, 111, 23);
+		restartButton.setBackground(Color.black);
+		restartButton.setForeground(Color.white);
 		getContentPane().add(restartButton);
 		
 		btnStockRequest = new JButton("입고 요청 처리");
 		btnStockRequest.setBounds(12, 80, 160, 95);
+		btnStockRequest.setBackground(Color.decode("#778899"));
+		btnStockRequest.setForeground(Color.white);
 		getContentPane().add(btnStockRequest);
 		
 		btnStockModify = new JButton("재고 수정");
 		btnStockModify.setBounds(12, 185, 160, 95);
+		btnStockModify.setBackground(Color.decode("#008B8B"));
+		btnStockModify.setForeground(Color.white);
 		getContentPane().add(btnStockModify);
 		
 		btnStockDelete = new JButton("재고 삭제");
 		btnStockDelete.setBounds(12, 290, 160, 95);
+		btnStockDelete.setBackground(Color.decode("#DC143C"));
+		btnStockDelete.setForeground(Color.white);
 		getContentPane().add(btnStockDelete);
 		
 		btnStockInsert = new JButton("재고 추가");
 		btnStockInsert.setBounds(12, 395, 160, 95);
+		btnStockInsert.setBackground(Color.decode("#4B0082"));
+		btnStockInsert.setForeground(Color.white);
 		getContentPane().add(btnStockInsert);
 
 		logOutButton = new JButton("로그아웃");
 		logOutButton.setBounds(926, 553, 111, 23);
+	    logOutButton.setBackground(Color.decode("#FF4500"));
+	    logOutButton.setForeground(Color.white);
 		getContentPane().add(logOutButton);
 
 		btnStockModify.addActionListener(x -> stockModifyBtnAction());
