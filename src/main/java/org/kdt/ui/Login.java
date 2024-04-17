@@ -56,7 +56,7 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.decode("#DCDCDC"));
-		setTitle("로그인");
+		setTitle("재고 관리 프로그램");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
