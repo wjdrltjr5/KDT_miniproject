@@ -2,13 +2,7 @@ package org.kdt.ui;
 
 import java.awt.Color;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import org.kdt.dao.MemberDAO;
@@ -20,8 +14,8 @@ public class InsertMember extends JFrame {
 	private final MemberService memberService;
 	private JPanel contentPane;
 	private JTextField textField_id;
-	private JTextField textField_pw;
-	private JTextField textField_chpw;
+	private JPasswordField textField_pw;
+	private JPasswordField textField_chpw;
 	private JTextField textField_em;
 	private JTextField textField_name;
 
@@ -83,12 +77,12 @@ public class InsertMember extends JFrame {
 		textField_id.setBounds(96, 107, 178, 25);
 		contentPane.add(textField_id);
 		
-		textField_pw = new JTextField();
+		textField_pw = new JPasswordField();
 		textField_pw.setColumns(10);
 		textField_pw.setBounds(96, 159, 178, 25);
 		contentPane.add(textField_pw);
 		
-		textField_chpw = new JTextField();
+		textField_chpw = new JPasswordField();
 		textField_chpw.setColumns(10);
 		textField_chpw.setBounds(96, 212, 178, 25);
 		contentPane.add(textField_chpw);
