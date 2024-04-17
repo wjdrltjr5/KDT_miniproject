@@ -111,6 +111,10 @@ public class UserStockRequset extends JFrame {
 		JButton btnChargeMoney = new JButton("충전하기");
 		btnChargeMoney.setBounds(50, 330, 91, 23);
 		getContentPane().add(btnChargeMoney);
+		
+		JButton btnNewButton = new JButton("금액갱신");
+		btnNewButton.setBounds(50, 363, 91, 23);
+		getContentPane().add(btnNewButton);
 
 
 		comboBox.addItem("전체품목");
