@@ -4,12 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import org.kdt.dao.MemberDAO;
@@ -29,7 +24,7 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfId;
-	private JTextField tfPwd;
+	private JPasswordField tfPwd;
 	private JButton btnLogin;
 	private JButton btnSignUp;
 	private JButton btnFindPasswd;
@@ -59,7 +54,7 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.decode("#DCDCDC"));
-		setTitle("로그인");
+		setTitle("재고 관리 프로그램");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -77,7 +72,7 @@ public class Login extends JFrame {
 		contentPane.add(tfId);
 		tfId.setColumns(10);
 		
-		tfPwd = new JTextField();
+		tfPwd = new JPasswordField();
 		tfPwd.setBounds(102, 98, 125, 26);
 		contentPane.add(tfPwd);
 		tfPwd.setColumns(10);
