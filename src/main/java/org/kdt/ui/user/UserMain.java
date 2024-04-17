@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import org.kdt.dao.MemberDAO;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
@@ -43,7 +44,7 @@ public class UserMain extends JFrame {
 	// ProductMain
 	public UserMain(MemberDTO memberDTO) {
 		this.memberDTO = memberDTO;
-		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
+		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO(),new MemberDAO());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);

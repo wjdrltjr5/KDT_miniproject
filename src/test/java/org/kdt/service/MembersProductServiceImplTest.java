@@ -2,6 +2,7 @@ package org.kdt.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.kdt.dao.MemberDAO;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MembersProductDTO;
@@ -26,7 +27,7 @@ class MembersProductServiceImplTest {
     @Test
     void findByOrderNo(){
         //given
-        MembersProductService membersProductService = new MembersProductServiceImpl(new MembersProductDAO(),new ProductDAO());
+        MembersProductService membersProductService = new MembersProductServiceImpl(new MembersProductDAO(),new ProductDAO(),new MemberDAO());
         //when
         MembersProductDTO byNo = membersProductService.findByNo("1");
         //then
@@ -38,7 +39,7 @@ class MembersProductServiceImplTest {
     @Test
     void findByStatusHold(){
         //given
-        MembersProductService membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
+        MembersProductService membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO(), new MemberDAO());
         //when
         List<MembersProductDTO> byStatusHold = membersProductService.findByStatusHold();
         //then

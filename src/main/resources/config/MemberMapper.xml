@@ -20,4 +20,11 @@
     <select id="findByIdOrEmail" resultType= "MemberDTO" parameterType="MemberDTO" >
         select * from member where member_id = #{member_id} or member_email = #{member_email}
     </select>
+
+    <update id="updateBalance" parameterType="MemberDTO">
+        update member set member_balance = #{member_balance} where member_no = #{member_no}
+    </update>
+    <select id="findByNo" resultType="MemberDTO" parameterType="String">
+        select * from member where member_no = #{member_no}
+    </select>
 </mapper>

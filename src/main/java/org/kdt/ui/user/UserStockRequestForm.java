@@ -13,11 +13,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.kdt.dao.MemberDAO;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.MembersProductStatus;
+import org.kdt.exception.NoMoneyException;
 import org.kdt.service.MembersProductService;
 import org.kdt.service.MembersProductServiceImpl;
 
@@ -33,7 +35,7 @@ public class UserStockRequestForm extends JFrame {
 
 
     public UserStockRequestForm(MemberDTO memberDTO) {
-        membersProductService = new MembersProductServiceImpl(new MembersProductDAO(),new ProductDAO());
+        membersProductService = new MembersProductServiceImpl(new MembersProductDAO(),new ProductDAO(),new MemberDAO());
         this.memberDTO = memberDTO;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 350, 300);
@@ -93,7 +95,7 @@ public class UserStockRequestForm extends JFrame {
             dto.setMember_no(String.valueOf(memberDTO.getMember_no()));
             dto.setStatus(MembersProductStatus.HOLD.getText());
             // 제품 추가
-            int result = membersProductService.requestStock(dto);
+            int result = membersProductService.requestStock(dto,memberDTO);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "제품이 요청되었습니다.");
                 setVisible(false);
@@ -101,12 +103,15 @@ public class UserStockRequestForm extends JFrame {
                 JOptionPane.showMessageDialog(null, "제품 요청이 실패했습니다.");
                 setVisible(false);
             }
-        } catch (NumberFormatException ex) {
+        }catch (NoMoneyException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            ChargeMoneyForm chargeMoneyForm = new ChargeMoneyForm(memberDTO);
+            chargeMoneyForm.setVisible(true);
+        }catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "잘못된 입력 형식입니다. 숫자를 입력해주세요.");
 
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             ex.printStackTrace();
-
         }
     }
 }

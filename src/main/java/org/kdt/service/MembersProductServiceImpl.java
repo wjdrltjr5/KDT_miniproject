@@ -2,11 +2,13 @@ package org.kdt.service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.kdt.Config;
+import org.kdt.dao.MemberDAO;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
+import org.kdt.exception.NoMoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +17,13 @@ import java.util.List;
 public class MembersProductServiceImpl implements MembersProductService{
     private final MembersProductDAO membersProductDao;
     private final ProductDAO productDao;
+    private final MemberDAO memberDAO;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
-    public MembersProductServiceImpl(MembersProductDAO membersProductDao, ProductDAO productDao) {
+    public MembersProductServiceImpl(MembersProductDAO membersProductDao, ProductDAO productDao,MemberDAO memberDAO) {
         this.membersProductDao = membersProductDao;
         this.productDao = productDao;
+        this.memberDAO = memberDAO;
     }
     @Override
     public List<MembersProductDTO> findByStatusHold(){
@@ -29,9 +33,15 @@ public class MembersProductServiceImpl implements MembersProductService{
     }
 
     @Override
-    public int requestOrderFailure(String OrderNo) {
+    public int requestOrderFailure(String orderNo) {
         try(SqlSession session = Config.getConnection()){
-        int result = membersProductDao.requestOrderFailure(session,OrderNo);
+        int result = membersProductDao.requestOrderFailure(session, orderNo);
+        MembersProductDTO byOrderNo = membersProductDao.findByOrderNo(session, orderNo);
+        ProductDTO byNo = productDao.findByNo(session,byOrderNo.getProduct_no());
+        int returnMoney = byOrderNo.getProduct_quantity() * byNo.getProduct_price();
+        MemberDTO memberDTO = memberDAO.findByNo(session, byOrderNo.getMember_no());
+        memberDTO.setMember_balance(memberDTO.getMember_balance() + returnMoney);
+        memberDAO.updateBalance(session,memberDTO);
         session.commit();
         return result;
         }
@@ -108,8 +118,9 @@ public class MembersProductServiceImpl implements MembersProductService{
     }
 
     @Override
-    public int requestStock(MembersProductDTO membersProductDTO) {
+    public int requestStock(MembersProductDTO membersProductDTO,MemberDTO memberDTO) throws NoMoneyException{
         try(SqlSession session = Config.getConnection()){
+            pay(session,membersProductDTO,memberDTO);
             int result = membersProductDao.requestStock(session, membersProductDTO);
             session.commit();
             return result;
@@ -162,4 +173,15 @@ public class MembersProductServiceImpl implements MembersProductService{
             return dto != null;
         }
     }
+    private void pay(SqlSession session,MembersProductDTO membersProductDTO, MemberDTO memberDTO)throws NoMoneyException{
+        ProductDTO byNo = productDao.findByNo(session,membersProductDTO.getProduct_no());
+        int requireMoney = byNo.getProduct_price() * membersProductDTO.getProduct_quantity();
+        if(requireMoney > memberDTO.getMember_balance()){
+            throw new NoMoneyException("소지금액이 부족합니다. 보유금액 : "+ memberDTO.getMember_balance() +
+                    "필요금액 : " + requireMoney);
+        }
+        memberDTO.setMember_balance(memberDTO.getMember_balance() - requireMoney);
+        memberDAO.updateBalance(session,memberDTO);
+    }
+
 }

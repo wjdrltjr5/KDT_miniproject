@@ -21,4 +21,12 @@ public class MemberDAO {
 	public List<MemberDTO> findByIdOrEmail(SqlSession session, MemberDTO memberDTO) {
 		return session.selectList("MemberMapper.findByIdOrEmail", memberDTO);
 	}
+
+	public int updateBalance(SqlSession session, MemberDTO memberDTO) {
+		return session.update("MemberMapper.updateBalance",memberDTO);
+	}
+
+	public MemberDTO findByNo(SqlSession session, String memberNo){
+		return session.selectOne("MemberMapper.findByNo",memberNo);
+	}
 }
