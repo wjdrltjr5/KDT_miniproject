@@ -112,9 +112,9 @@ public class UserStockRequset extends JFrame {
 		btnChargeMoney.setBounds(50, 330, 91, 23);
 		getContentPane().add(btnChargeMoney);
 		
-		JButton btnNewButton = new JButton("금액갱신");
-		btnNewButton.setBounds(50, 363, 91, 23);
-		getContentPane().add(btnNewButton);
+		JButton btnMoneyUpdate = new JButton("금액갱신");
+		btnMoneyUpdate.setBounds(50, 363, 91, 23);
+		getContentPane().add(btnMoneyUpdate);
 
 
 		comboBox.addItem("전체품목");
@@ -124,6 +124,8 @@ public class UserStockRequset extends JFrame {
 
 		ProductDAO dao = new ProductDAO();
 		productService = new ProductServiceImpl(dao);
+
+		btnMoneyUpdate.addActionListener(e -> moneyUpdateBtnAction());
 
 		btnChargeMoney.addActionListener(x -> chargeMoneyBtnAction());
 
@@ -146,6 +148,9 @@ public class UserStockRequset extends JFrame {
 
 
 	} // ProductMain END.
+	private void moneyUpdateBtnAction(){
+		balance.setText(String.valueOf(memberDTO.getMember_balance()));
+	}
 	private void chargeMoneyBtnAction(){
 		ChargeMoneyForm chargeMoneyForm = new ChargeMoneyForm(memberDTO);
 		chargeMoneyForm.setVisible(true);
@@ -154,10 +159,6 @@ public class UserStockRequset extends JFrame {
 		UserStockRequestForm userStockRequestForm = new UserStockRequestForm(memberDTO);
 		userStockRequestForm.setVisible(true);
 	}
-
-
-
-
 	private void selectAllBtnAction(){
 		loadTableData();
 		// 테이블에 표시된 전체 항목 수를 텍스트 필드에 표시
