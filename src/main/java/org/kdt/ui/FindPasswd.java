@@ -39,6 +39,7 @@ public class FindPasswd extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.controlHighlight);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("비밀번호찾기");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

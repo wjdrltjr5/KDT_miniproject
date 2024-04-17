@@ -38,6 +38,7 @@ public class FindId extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.controlHighlight);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("아이디찾기");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
