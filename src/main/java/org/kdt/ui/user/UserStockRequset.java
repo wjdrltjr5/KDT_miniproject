@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import org.kdt.dao.ProductDAO;
@@ -22,7 +23,6 @@ import org.kdt.dto.MemberDTO;
 import org.kdt.dto.ProductDTO;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
-import javax.swing.SwingConstants;
 
 public class UserStockRequset extends JFrame {
 
@@ -110,10 +110,14 @@ public class UserStockRequset extends JFrame {
         
         JButton btnChargeMoney = new JButton("충전하기");
         btnChargeMoney.setBounds(50, 330, 91, 23);
+        btnChargeMoney.setBackground(Color.decode("#DAA520"));
+        btnChargeMoney.setForeground(Color.white);
         getContentPane().add(btnChargeMoney);
         
         JButton btnMoneyUpdate = new JButton("금액갱신");
         btnMoneyUpdate.setBounds(50, 363, 91, 23);
+        btnMoneyUpdate.setBackground(Color.decode("#2F4F4F"));
+        btnMoneyUpdate.setForeground(Color.white);
         getContentPane().add(btnMoneyUpdate);
 
 

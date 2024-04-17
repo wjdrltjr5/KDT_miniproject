@@ -1,15 +1,21 @@
 package org.kdt.ui.user;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import org.kdt.dao.MemberDAO;
 import org.kdt.dto.MemberDTO;
 import org.kdt.service.MemberService;
 import org.kdt.service.MemberServiceImpl;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class ChargeMoneyForm extends JFrame {
 
@@ -35,6 +41,7 @@ public class ChargeMoneyForm extends JFrame {
         JLabel lblNewLabel = new JLabel("충전할 금액");
         lblNewLabel.setBounds(12, 31, 77, 50);
         contentPane.add(lblNewLabel);
+        setTitle("금액충전");
         
         textField = new JTextField();
         textField.setBounds(101, 32, 212, 50);
@@ -43,6 +50,8 @@ public class ChargeMoneyForm extends JFrame {
         
         JButton btnChargeMoney = new JButton("충전하기");
         btnChargeMoney.setBounds(68, 105, 200, 40);
+        btnChargeMoney.setBackground(Color.decode("#DAA520"));
+        btnChargeMoney.setForeground(Color.white);
         contentPane.add(btnChargeMoney);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
