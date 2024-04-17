@@ -27,4 +27,13 @@
     <select id="findByNo" resultType="MemberDTO" parameterType="String">
         select * from member where member_no = #{member_no}
     </select>
+    
+    <!-- 아이디 찾기 -->
+    <select id="findId" resultType="String" parameterType="map">
+    	select member_id from member where member_name=#{member_name} and member_email=#{member_email}
+    </select>
+    <!-- 비밀번호 찾기 -->
+    <select id="findPasswd" resultType="String" parameterType="map">
+    	select member_passwd from member where member_name=#{member_name} and member_id=#{member_id} and member_email=#{member_email}
+    </select>
 </mapper>

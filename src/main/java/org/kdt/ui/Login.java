@@ -2,6 +2,7 @@ package org.kdt.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +32,8 @@ public class Login extends JFrame {
 	private JTextField tfPwd;
 	private JButton btnLogin;
 	private JButton btnSignUp;
+	private JButton btnFindPasswd;
+	private JButton btnFindId;
 	/**
 	 * Launch the application.
 	 */
@@ -92,8 +95,27 @@ public class Login extends JFrame {
 		btnSignUp.setBackground(Color.black);
 		btnSignUp.setForeground(Color.white);
 		contentPane.add(btnSignUp);
-
+		
 		btnSignUp.addActionListener(x -> insertMemberBtnAction());
+
+		btnFindPasswd = new JButton("비밀번호 찾기");
+		btnFindPasswd.setFont(new Font("굴림", Font.PLAIN, 9));
+		btnFindPasswd.setForeground(Color.WHITE);
+		btnFindPasswd.setBackground(Color.BLACK);
+		btnFindPasswd.setBounds(136, 198, 91, 23);
+		contentPane.add(btnFindPasswd);
+		
+		btnFindPasswd.addActionListener(x -> findPasswdBtnAction());
+		
+		btnFindId = new JButton("아이디 찾기");
+		btnFindId.setForeground(Color.WHITE);
+		btnFindId.setFont(new Font("굴림", Font.PLAIN, 9));
+		btnFindId.setBackground(Color.BLACK);
+		btnFindId.setBounds(33, 198, 91, 23);
+		contentPane.add(btnFindId);
+		
+		btnFindId.addActionListener(x -> findIdBtnAction());
+		
 
 	}
 
@@ -126,4 +148,12 @@ public class Login extends JFrame {
 		this.setVisible(false);
 		insertMember.setVisible(true);
 	};
+	private void findIdBtnAction() {
+		FindId findId = new FindId();
+		findId.setVisible(true);
+	}
+	private void findPasswdBtnAction() {
+		FindPasswd findPasswd = new FindPasswd();
+		findPasswd.setVisible(true);
+	}
 }

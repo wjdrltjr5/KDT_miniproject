@@ -70,4 +70,22 @@ public class MemberServiceImpl implements MemberService {
         }
         return result;
     }
+
+    @Override
+    public String findId(MemberDTO memberDTO) {
+    	String id = null;
+    	try(SqlSession session = Config.getConnection()) {
+    		id = memberDAO.findId(session, memberDTO);
+    	}
+    	return id;
+    }
+	@Override
+	public String findPasswd(MemberDTO memberDTO) {
+		String passwd = null;
+		try(SqlSession session = Config.getConnection()) {
+			passwd = memberDAO.findPasswd(session, memberDTO);
+		}
+		return passwd;
+	}
+
 }
