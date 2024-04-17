@@ -15,9 +15,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import org.kdt.dao.MemberDAO;
+import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.dto.MemberDTO;
+import org.kdt.dto.MembersProductDTO;
 import org.kdt.dto.ProductDTO;
+import org.kdt.service.MembersProductService;
+import org.kdt.service.MembersProductServiceImpl;
 import org.kdt.service.ProductService;
 import org.kdt.service.ProductServiceImpl;
 import org.kdt.ui.Login;
@@ -26,7 +31,8 @@ public class ProductMain extends JFrame {
 
 	private JButton btnSelectAll; // 전체 테이블 조회버튼
 	private JTable table; // 테이블
-	private ProductService productService;
+	private final ProductService productService;
+	private final MembersProductService membersProductService;
 
 	JComboBox<String> comboBox; // 검색조건box
 	private JTextField searchBar; // 검색bar
@@ -43,6 +49,7 @@ public class ProductMain extends JFrame {
 
 	// ProductMain
 	public ProductMain(MemberDTO memberDTO) {
+		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO(), new MemberDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 632);
 		getContentPane().setLayout(null);
@@ -140,9 +147,7 @@ public class ProductMain extends JFrame {
 
 		logOutButton.addActionListener(e -> logOutBtnAction());
 
-
-
-
+		hasOrderRequest();
 	} // ProductMain END.
 
 	private void logOutBtnAction() {
@@ -280,4 +285,11 @@ public class ProductMain extends JFrame {
 			}
 		}
 	}
+
+	private void hasOrderRequest(){
+		if(membersProductService.findByStatusHold().size() > 0){
+			JOptionPane.showMessageDialog(null, "미처리된 입고 요청이 있습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
 }
