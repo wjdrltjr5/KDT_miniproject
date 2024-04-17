@@ -62,9 +62,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int chargeMoney(MemberDTO memberDTO, int money) {
+        int result = 0;
         try(SqlSession session = Config.getConnection()){
             memberDTO.setMember_balance(memberDTO.getMember_balance() + money);
-            return memberDAO.updateBalance(session,memberDTO);
+            result = memberDAO.updateBalance(session,memberDTO);
+            session.commit();
         }
+        return result;
     }
 }

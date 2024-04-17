@@ -64,11 +64,13 @@ public class ChargeMoneyForm extends JFrame {
 	}
 
 	private void chargeMoneyBtnAction(){
+		int member_balance = memberDTO.getMember_balance();
 		int i = memberService.chargeMoney(memberDTO, Integer.parseInt(textField.getText()));
 		if(i > 0){
 			JOptionPane.showMessageDialog(null, "충전에 성공하였습니다.");
 			setVisible(false);
 		}else{
+			memberDTO.setMember_balance(member_balance);
 			JOptionPane.showMessageDialog(null, "충전에 실패하였습니다.");
 			setVisible(false);
 		}

@@ -25,4 +25,8 @@ public class MemberDAO {
 	public int updateBalance(SqlSession session, MemberDTO memberDTO) {
 		return session.update("MemberMapper.updateBalance",memberDTO);
 	}
+
+	public MemberDTO findByNo(SqlSession session, String memberNo){
+		return session.selectOne("MemberMapper.findByNo",memberNo);
+	}
 }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.kdt.dao.MemberDAO;
 import org.kdt.dao.MembersProductDAO;
 import org.kdt.dao.ProductDAO;
 import org.kdt.service.MembersProductService;
@@ -28,7 +29,7 @@ public class Permit extends JFrame {
 
 	public Permit() {
 		setTitle("허가하기");
-		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO());
+		membersProductService = new MembersProductServiceImpl(new MembersProductDAO(), new ProductDAO(),new MemberDAO());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 200);
 		contentPane = new JPanel();
